@@ -6,10 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Harlow Malloc">
+<meta name="author" content="E. Pedapati">
 <meta name="dcterms.date" content="2023-06-28">
 
-<title>devblog - Post With Code</title>
+<title>Cincinnati Brain Lab Development Blog - vHTP Import Documentation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -74,7 +74,7 @@ ul.task-list li input[type="checkbox"] {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
     <a class="navbar-brand" href="../../index.html">
-    <span class="navbar-title">devblog</span>
+    <span class="navbar-title">Cincinnati Brain Lab Development Blog</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -85,15 +85,15 @@ ul.task-list li input[type="checkbox"] {
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
     <a class="nav-link" href="../../about.html" rel="" target="">
- <span class="menu-text">About</span></a>
+ <span class="menu-text">About Us</span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/" rel="" target=""><i class="bi bi-github" role="img">
+    <a class="nav-link" href="https://github.com/cincibrainlab" rel="" target=""><i class="bi bi-github" role="img">
 </i> 
  <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://twitter.com" rel="" target=""><i class="bi bi-twitter" role="img">
+    <a class="nav-link" href="https://twitter.com/cbrainlab" rel="" target=""><i class="bi bi-twitter" role="img">
 </i> 
  <span class="menu-text"></span></a>
   </li>  
@@ -108,11 +108,11 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Post With Code</h1>
+      <h1 class="title">vHTP Import Documentation</h1>
                                 <div class="quarto-categories">
-                <div class="quarto-category">news</div>
-                <div class="quarto-category">code</div>
-                <div class="quarto-category">analysis</div>
+                <div class="quarto-category">EEG</div>
+                <div class="quarto-category">Matlab</div>
+                <div class="quarto-category">documentation</div>
               </div>
                   </div>
   </div>
@@ -123,7 +123,7 @@ ul.task-list li input[type="checkbox"] {
       <div>
       <div class="quarto-title-meta-heading">Author</div>
       <div class="quarto-title-meta-contents">
-               <p>Harlow Malloc </p>
+               <p>E. Pedapati </p>
             </div>
     </div>
       
@@ -148,9 +148,67 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<p>This is a post with executable code.</p>
+<section id="vhtp-import-tool-documentation" class="level1">
+<h1>vHTP Import Tool Documentation</h1>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>The MATLAB EEG Import Utility is a tool designed to import machine-specific EEG files into EEGLAB SET format. It provides a graphical user interface (GUI) for easy file selection, system configuration, and file importing. This documentation will guide you through the process of using the utility effectively.</p>
+</section>
+<section id="installation-and-requirements" class="level2">
+<h2 class="anchored" data-anchor-id="installation-and-requirements">Installation and Requirements</h2>
+<p>Though other dependencies may be needed to run preprocessing and analysis functions from the larger vHTP toolkit, the EEG Import Utility only requires MATLAB and EEGLAB to run. The following software versions are recommended:</p>
+<ul>
+<li>MATLAB R2019a or later</li>
+<li>EEGLAB 14 or later with the Biosig plugin</li>
+</ul>
+</section>
+<section id="custom-import-functions" class="level2">
+<h2 class="anchored" data-anchor-id="custom-import-functions">Custom import functions</h2>
+<p>If you have custom import functions, please log an issue on the GitHub repository and we will work with you to integrate them into the utility.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><em>SET Files</em> are an option and will move SET files from one directory to another without any conversion. This may be useful for moving batches of SET files out of a directory of BIDS structure, for example.</p>
+</div>
+</div>
+</section>
+<section id="user-interface-overview" class="level2">
+<h2 class="anchored" data-anchor-id="user-interface-overview">User Interface Overview</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="htpImportGui with Steps.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Annotated vHTP Import Tool Interface</figcaption>
+</figure>
+</div>
+<p>The EEG Import Utility GUI consists of several components, including buttons, checkboxes, labels, and a table. Here is an overview of the main components:</p>
+<ol type="1">
+<li><p><em>Installation Status:</em> These indicators show whether the EEG Import Utility is installed and ready to use. These indicators are based on the <a href="">htpDoctor</a> function, which checks for the presence of the required dependencies.</p></li>
+<li><p><em>Select directory of machine-specific EEG or SET files:</em> Use this field to specify the directory containing the EEG files you want to import. Click the “Select Path” button to choose the directory using the file dialog.</p></li>
+<li><p><em>Search subfolders</em>: Check this box to include subfolders in the search for EEG files.</p></li>
+<li><p><em>Output SET Directory:</em> Specify the directory where the exported SET files will be saved. Click the “Select Path” button to choose the output directory using the file dialog.</p></li>
+<li><p><em>Key Word Filter:</em> Enter a keyword to filter the file list. Only files containing the keyword in their names will be displayed.</p></li>
+<li><p><em>Negate Filter:</em> Check this box to invert the filtering logic. Files that do not contain the specified keyword will be displayed.</p></li>
+<li><p><em>Select EEG System:</em> Choose the appropriate EEG system from the dropdown list. This selection determines the import settings for the files. <strong>If you do not see your system in the list, please log an issue on the GitHub repository.</strong></p></li>
+<li><p><em>Scan Files:</em> Click this button to scan the selected directory for EEG files. The file list (12) will be updated with the results of the scan.</p></li>
+<li><p>Test Import: This button performs a test import of the selected files. It displays the import results in the MATLAB Command Window.</p></li>
+<li><p>Convert to SET: Clicking this button starts the actual import process, converting the selected files to EEGLAB SET format and saving them in the output directory.</p></li>
+<li><p>Open Input and Output Folder: This button opens the input and output directory in the file explorer.</p></li>
+<li><p>File Import Table: This table displays the list of files found in the selected directory. It shows the filename and subfolder for each file.</p></li>
+</ol>
+</section>
+<section id="example-workflow" class="level2">
+<h2 class="anchored" data-anchor-id="example-workflow">Example Workflow</h2>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

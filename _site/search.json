@@ -4,14 +4,14 @@
     "href": "index.html",
     "title": "Cincinnati Brain Lab Development Blog",
     "section": "",
-    "text": "Post With Code\n\n\n\n\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\n\n\n\n\nJun 28, 2023\n\n\nHarlow Malloc\n\n\n\n\n\n\n  \n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\n\n\nJun 25, 2023\n\n\nTristan O’Malley\n\n\n\n\n\n\nNo matching items"
+    "text": "vHTP Import Documentation\n\n\n\n\n\n\n\nEEG\n\n\nMatlab\n\n\ndocumentation\n\n\n\n\n\n\n\n\n\n\n\nJun 28, 2023\n\n\nE. Pedapati\n\n\n\n\n\n\n  \n\n\n\n\nIntroducing the vHTP Import Utility\n\n\n\n\n\n\n\nvhtp\n\n\neeglab\n\n\nmatlab\n\n\npreprocessing\n\n\neeg\n\n\n\n\n\n\n\n\n\n\n\nJun 25, 2023\n\n\nErnie Pedapati\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/post-with-code/index.html",
     "href": "posts/post-with-code/index.html",
-    "title": "Post With Code",
+    "title": "vHTP Import Documentation",
     "section": "",
-    "text": "This is a post with executable code."
+    "text": "The MATLAB EEG Import Utility is a tool designed to import machine-specific EEG files into EEGLAB SET format. It provides a graphical user interface (GUI) for easy file selection, system configuration, and file importing. This documentation will guide you through the process of using the utility effectively.\n\n\n\nThough other dependencies may be needed to run preprocessing and analysis functions from the larger vHTP toolkit, the EEG Import Utility only requires MATLAB and EEGLAB to run. The following software versions are recommended:\n\nMATLAB R2019a or later\nEEGLAB 14 or later with the Biosig plugin\n\n\n\n\nIf you have custom import functions, please log an issue on the GitHub repository and we will work with you to integrate them into the utility.\n\n\n\n\n\n\nNote\n\n\n\nSET Files are an option and will move SET files from one directory to another without any conversion. This may be useful for moving batches of SET files out of a directory of BIDS structure, for example.\n\n\n\n\n\n\n\n\nAnnotated vHTP Import Tool Interface\n\n\nThe EEG Import Utility GUI consists of several components, including buttons, checkboxes, labels, and a table. Here is an overview of the main components:\n\nInstallation Status: These indicators show whether the EEG Import Utility is installed and ready to use. These indicators are based on the htpDoctor function, which checks for the presence of the required dependencies.\nSelect directory of machine-specific EEG or SET files: Use this field to specify the directory containing the EEG files you want to import. Click the “Select Path” button to choose the directory using the file dialog.\nSearch subfolders: Check this box to include subfolders in the search for EEG files.\nOutput SET Directory: Specify the directory where the exported SET files will be saved. Click the “Select Path” button to choose the output directory using the file dialog.\nKey Word Filter: Enter a keyword to filter the file list. Only files containing the keyword in their names will be displayed.\nNegate Filter: Check this box to invert the filtering logic. Files that do not contain the specified keyword will be displayed.\nSelect EEG System: Choose the appropriate EEG system from the dropdown list. This selection determines the import settings for the files. If you do not see your system in the list, please log an issue on the GitHub repository.\nScan Files: Click this button to scan the selected directory for EEG files. The file list (12) will be updated with the results of the scan.\nTest Import: This button performs a test import of the selected files. It displays the import results in the MATLAB Command Window.\nConvert to SET: Clicking this button starts the actual import process, converting the selected files to EEGLAB SET format and saving them in the output directory.\nOpen Input and Output Folder: This button opens the input and output directory in the file explorer.\nFile Import Table: This table displays the list of files found in the selected directory. It shows the filename and subfolder for each file."
   },
   {
     "objectID": "posts/welcome/index.html",
@@ -26,5 +26,82 @@
     "title": "About Us",
     "section": "",
     "text": "Welcome to the Development Blog for the Cincinnati Brain Lab. We are a group of dedicated researchers, clinicians, and data scientists engaged in the pursuit of groundbreaking research in the field of computational neuroscience primarily in clinical populations.\n\n\n\n\n\n\nVisual HTP\n\n\n\n\n\n\n\nSignalFlow\n\n\n\n\n\nOur Github is primarily devoted to developing signal processing software for dense array EEG. The Visual High Throughput Pipeline has been used in our laboratory to process 1000s of EEG including murine recordings and used in peer review publications. We are currently developing a pipeline framework, SignalFlow to rapidly deploy and iterate preprocessing and analysis variations.\nOur focus is on Neurodevelopmental disorders including Fragile X Syndrome and autism, including physiology studies, non invasive brain stimulation, and interventional trials. We are broadly funded including grants from the NIH, Autism Speaks, Cincinnati Children’s Hospital Research Foundation, FRAXA, and biotech and industry partners."
+  },
+  {
+    "objectID": "posts/htpimport/index.html",
+    "href": "posts/htpimport/index.html",
+    "title": "Introducing the vHTP Import Utility",
+    "section": "",
+    "text": "vHTP Import GUI\n\n\n\n\nImporting and managing EEG files can be a complex task, especially when working with different recording systems and directories. The vHTP Import Utility is a MATLAB tool designed to simplify this process by providing an easy-to-use interface for importing various raw EEG formats into the EEGLAB SET format. It also allows for moving SET files from subdirectories based on keywords. Following import a detailed filelist in CSV format is generated for easy reference.\n\n\n\n\nImport from various raw EEG formats: The vHTP Import Utility supports the import of EEG files from different formats, making it easy to work with files collected using different EEG systems.\nMove set files from subdirectories: The utility allows users to move set files from subdirectories, providing better organization and easier access for analysis.\nFilter files based on keywords: Users can specify keywords to filter the imported\nGenerate a detailed filelist: The utility generates a detailed filelist in CSV format, making it easy to reference and share information about the imported files.\n\n\n\n\nThe vHTP import utility is a MATLAB AppDesigner application. The underlying code is written in MATLAB and uses both custom code and EEGLAB toolbox for importing and managing EEG files. The utility is designed to be used with the vHTP EEG Preprocessing Pipeline, but can also be used as a standalone tool.\n\n\n\nThe vHTP Import Utility is distributed with the vHTP EEG Pipeline. You can either download a zip file from Github repository or use the git commandline tool to clone the repository.\ngit clone https://github.com/cincibrainlab/vhtp.git\n\n\n\n\n\n\nhtp “Doctor”\n\n\nTo simplify the process of installation, we have created a commandline utility called htpDoctor. The “doctor” checks your system to verify any needed toolkits, plugins, or dependencies for a functional vHTP install. If any of the required toolkits are missing, the htpDoctor provides several automatic fixing options.\n\n\nThe htpDoctor is a commandline utility that can be run from the MATLAB command window.\nAfter downloading the vHTP EEG Pipeline, navigate to the vHTP directory and run the htpDoctor from the MATLAB command window:\nhtpDoctor;\n\n\n\n\nToolkit Verification: The htpDoctor performs a series of checks to verify the availability and installation of essential toolkits such as EEGlab, Brainstorm, Biosig, BRAPH, and BCT (Brain Connectivity Toolbox). It also checks for the presence of specific EEGlab plugins like clean_rawdata, ICLabel, viewprops, and firfilt.\nDetailed Output: The htpDoctor provides informative output messages for each verification step, indicating whether the toolkit is available or requires fixing. It also displays the relevant fix commands, making it easy for users to rectify any issues.\nAutomatic Fixing: In case any of the required toolkits are missing or not properly installed, the htpDoctor provides automatic fixing options. It guides users through the installation or configuration process, ensuring that the toolkits are set up correctly.\nPath Generation: The htpDoctor generates the necessary path names for each verified toolkit. It provides the directory paths for the installed toolkits, allowing users to easily access and work with them in their EEG analysis workflow."
+  },
+  {
+    "objectID": "posts/htpimport/index.html#overview",
+    "href": "posts/htpimport/index.html#overview",
+    "title": "Introducing the vHTP Import Utility",
+    "section": "",
+    "text": "Importing and managing EEG files can be a complex task, especially when working with different recording systems and directories. The vHTP Import Utility is a MATLAB tool designed to simplify this process by providing an easy-to-use interface for importing various raw EEG formats into the EEGLAB SET format. It also allows for moving SET files from subdirectories based on keywords. Following import a detailed filelist in CSV format is generated for easy reference."
+  },
+  {
+    "objectID": "posts/htpimport/index.html#key-features",
+    "href": "posts/htpimport/index.html#key-features",
+    "title": "Introducing the vHTP Import Utility",
+    "section": "",
+    "text": "Import from various raw EEG formats: The vHTP Import Utility supports the import of EEG files from different formats, making it easy to work with files collected using different EEG systems.\nMove set files from subdirectories: The utility allows users to move set files from subdirectories, providing better organization and easier access for analysis.\nFilter files based on keywords: Users can specify keywords to filter the imported\nGenerate a detailed filelist: The utility generates a detailed filelist in CSV format, making it easy to reference and share information about the imported files."
+  },
+  {
+    "objectID": "posts/htpimport/index.html#backend",
+    "href": "posts/htpimport/index.html#backend",
+    "title": "Introducing the vHTP Import Utility",
+    "section": "",
+    "text": "The vHTP import utility is a MATLAB AppDesigner application. The underlying code is written in MATLAB and uses both custom code and EEGLAB toolbox for importing and managing EEG files. The utility is designed to be used with the vHTP EEG Preprocessing Pipeline, but can also be used as a standalone tool."
+  },
+  {
+    "objectID": "posts/htpimport/index.html#behind-the-scenes",
+    "href": "posts/htpimport/index.html#behind-the-scenes",
+    "title": "Introducing the vHTP Import Utility",
+    "section": "",
+    "text": "The vHTP import utility is a MATLAB AppDesigner application. The underlying code is written in MATLAB and uses both custom code and EEGLAB toolbox for importing and managing EEG files. The utility is designed to be used with the vHTP EEG Preprocessing Pipeline, but can also be used as a standalone tool."
+  },
+  {
+    "objectID": "posts/htpimport/index.html#installation-from-github",
+    "href": "posts/htpimport/index.html#installation-from-github",
+    "title": "Introducing the vHTP Import Utility",
+    "section": "",
+    "text": "The vHTP Import Utility is distributed with the vHTP EEG Pipeline. You can either download a zip file from Github repository or use the git commandline tool to clone the repository.\ngit clone https://github.com/cincibrainlab/vhtp.git"
+  },
+  {
+    "objectID": "posts/htpimport/index.html#installation-and-dependencies",
+    "href": "posts/htpimport/index.html#installation-and-dependencies",
+    "title": "Introducing the vHTP Import Utility",
+    "section": "",
+    "text": "htp “Doctor”\n\n\nTo simplify the process of installation, we have created a commandline utility called htpDoctor. The “doctor” checks your system to verify any needed toolkits, plugins, or dependencies for a functional vHTP install. If any of the required toolkits are missing, the htpDoctor provides several automatic fixing options.\n\n\nThe htpDoctor is a commandline utility that can be run from the MATLAB command window.\nAfter downloading the vHTP EEG Pipeline, navigate to the vHTP directory and run the htpDoctor from the MATLAB command window:\nhtpDoctor;\n\n\n\n\nToolkit Verification: The htpDoctor performs a series of checks to verify the availability and installation of essential toolkits such as EEGlab, Brainstorm, Biosig, BRAPH, and BCT (Brain Connectivity Toolbox). It also checks for the presence of specific EEGlab plugins like clean_rawdata, ICLabel, viewprops, and firfilt.\nDetailed Output: The htpDoctor provides informative output messages for each verification step, indicating whether the toolkit is available or requires fixing. It also displays the relevant fix commands, making it easy for users to rectify any issues.\nAutomatic Fixing: In case any of the required toolkits are missing or not properly installed, the htpDoctor provides automatic fixing options. It guides users through the installation or configuration process, ensuring that the toolkits are set up correctly.\nPath Generation: The htpDoctor generates the necessary path names for each verified toolkit. It provides the directory paths for the installed toolkits, allowing users to easily access and work with them in their EEG analysis workflow."
+  },
+  {
+    "objectID": "posts/post-with-code/index.html#introduction",
+    "href": "posts/post-with-code/index.html#introduction",
+    "title": "vHTP Import Documentation",
+    "section": "",
+    "text": "The MATLAB EEG Import Utility is a tool designed to import machine-specific EEG files into EEGLAB SET format. It provides a graphical user interface (GUI) for easy file selection, system configuration, and file importing. This documentation will guide you through the process of using the utility effectively."
+  },
+  {
+    "objectID": "posts/post-with-code/index.html#installation-and-requirements",
+    "href": "posts/post-with-code/index.html#installation-and-requirements",
+    "title": "vHTP Import Documentation",
+    "section": "",
+    "text": "Though other dependencies may be needed to run preprocessing and analysis functions from the larger vHTP toolkit, the EEG Import Utility only requires MATLAB and EEGLAB to run. The following software versions are recommended:\n\nMATLAB R2019a or later\nEEGLAB 14 or later with the Biosig plugin"
+  },
+  {
+    "objectID": "posts/post-with-code/index.html#user-interface-overview",
+    "href": "posts/post-with-code/index.html#user-interface-overview",
+    "title": "vHTP Import Documentation",
+    "section": "",
+    "text": "Annotated vHTP Import Tool Interface\n\n\nThe EEG Import Utility GUI consists of several components, including buttons, checkboxes, labels, and a table. Here is an overview of the main components:\n\nInstallation Status: These indicators show whether the EEG Import Utility is installed and ready to use. These indicators are based on the htpDoctor function, which checks for the presence of the required dependencies.\nSelect directory of machine-specific EEG or SET files: Use this field to specify the directory containing the EEG files you want to import. Click the “Select Path” button to choose the directory using the file dialog.\nSearch subfolders: Check this box to include subfolders in the search for EEG files.\nOutput SET Directory: Specify the directory where the exported SET files will be saved. Click the “Select Path” button to choose the output directory using the file dialog.\nKey Word Filter: Enter a keyword to filter the file list. Only files containing the keyword in their names will be displayed.\nNegate Filter: Check this box to invert the filtering logic. Files that do not contain the specified keyword will be displayed.\nSelect EEG System: Choose the appropriate EEG system from the dropdown list. This selection determines the import settings for the files. If you do not see your system in the list, please log an issue on the GitHub repository.\nScan Files: Click this button to scan the selected directory for EEG files. The file list (12) will be updated with the results of the scan.\nTest Import: This button performs a test import of the selected files. It displays the import results in the MATLAB Command Window.\nConvert to SET: Clicking this button starts the actual import process, converting the selected files to EEGLAB SET format and saving them in the output directory.\nOpen Input and Output Folder: This button opens the input and output directory in the file explorer.\nFile Import Table: This table displays the list of files found in the selected directory. It shows the filename and subfolder for each file."
+  },
+  {
+    "objectID": "posts/post-with-code/index.html#custom-import-functions",
+    "href": "posts/post-with-code/index.html#custom-import-functions",
+    "title": "vHTP Import Documentation",
+    "section": "",
+    "text": "If you have custom import functions, please log an issue on the GitHub repository and we will work with you to integrate them into the utility.\n\n\n\n\n\n\nNote\n\n\n\nSET Files are an option and will move SET files from one directory to another without any conversion. This may be useful for moving batches of SET files out of a directory of BIDS structure, for example."
   }
 ]
