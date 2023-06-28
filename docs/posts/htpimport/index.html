@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Ernie Pedapati">
+<meta name="dcterms.date" content="2023-06-25">
 
-<title>Cincinnati Brain Lab Development Blog</title>
+<title>Cincinnati Brain Lab Development Blog - Introducing the vHTP Import Utility</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,27 +22,59 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -61,50 +95,19 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
 
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
-<body class="nav-fixed">
+<body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Cincinnati Brain Lab Development Blog</span>
     </a>
   </div>
@@ -115,7 +118,7 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./about.html" rel="" target="">
+    <a class="nav-link" href="../../about.html" rel="" target="">
  <span class="menu-text">About Us</span></a>
   </li>  
   <li class="nav-item compact">
@@ -138,131 +141,109 @@ ul.task-list li input[type="checkbox"] {
 <!-- content -->
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page-left">
-      <h1 class="title">Cincinnati Brain Lab Development Blog</h1>
-                      </div>
+    <div class="quarto-title column-body">
+      <h1 class="title">Introducing the vHTP Import Utility</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">vhtp</div>
+                <div class="quarto-category">eeglab</div>
+                <div class="quarto-category">matlab</div>
+                <div class="quarto-category">preprocessing</div>
+                <div class="quarto-category">eeg</div>
+              </div>
+                  </div>
   </div>
     
   
   <div class="quarto-title-meta">
 
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Ernie Pedapati </p>
+            </div>
+    </div>
       
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">June 25, 2023</p>
+      </div>
+    </div>
     
       
     </div>
     
   
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(2)</span></div><div class="category" data-category="EEG">EEG <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Matlab">Matlab <span class="quarto-category-count">(1)</span></div><div class="category" data-category="documentation">documentation <span class="quarto-category-count">(1)</span></div><div class="category" data-category="eeg">eeg <span class="quarto-category-count">(1)</span></div><div class="category" data-category="eeglab">eeglab <span class="quarto-category-count">(1)</span></div><div class="category" data-category="matlab">matlab <span class="quarto-category-count">(1)</span></div><div class="category" data-category="preprocessing">preprocessing <span class="quarto-category-count">(1)</span></div><div class="category" data-category="vhtp">vhtp <span class="quarto-category-count">(1)</span></div></div></div>
+    
 <!-- main -->
-<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
 
 
+<section id="introducing-the-vhtp-import-utility-simplifying-the-import-of-eeg-files" class="level1">
+<h1>Introducing the vHTP Import Utility: Simplifying the Import of EEG Files</h1>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="import_gui.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">vHTP Import GUI</figcaption>
+</figure>
+</div>
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>Importing and managing EEG files can be a complex task, especially when working with different recording systems and directories. The vHTP Import Utility is a MATLAB tool designed to simplify this process by providing an easy-to-use interface for importing various raw EEG formats into the EEGLAB SET format. It also allows for moving SET files from subdirectories based on keywords. Following import a detailed filelist in CSV format is generated for easy reference.</p>
+</section>
+<section id="key-features" class="level2">
+<h2 class="anchored" data-anchor-id="key-features">Key Features</h2>
+<ol type="1">
+<li><p><em>Import from various raw EEG formats:</em> The vHTP Import Utility supports the import of EEG files from different formats, making it easy to work with files collected using different EEG systems.</p></li>
+<li><p><em>Move set files from subdirectories:</em> The utility allows users to move set files from subdirectories, providing better organization and easier access for analysis.</p></li>
+<li><p><em>Filter files based on keywords:</em> Users can specify keywords to filter the imported</p></li>
+<li><p><em>Generate a detailed filelist:</em> The utility generates a detailed filelist in CSV format, making it easy to reference and share information about the imported files.</p></li>
+</ol>
+</section>
+<section id="behind-the-scenes" class="level2">
+<h2 class="anchored" data-anchor-id="behind-the-scenes">Behind the Scenes</h2>
+<p>The vHTP import utility is a MATLAB AppDesigner application. The underlying code is written in MATLAB and uses both custom code and EEGLAB toolbox for importing and managing EEG files. The utility is designed to be used with the vHTP EEG Preprocessing Pipeline, but can also be used as a standalone tool.</p>
+</section>
+<section id="installation-from-github" class="level2">
+<h2 class="anchored" data-anchor-id="installation-from-github">Installation from GitHub</h2>
+<p>The vHTP Import Utility is distributed with the vHTP EEG Pipeline. You can either download a zip file from Github repository or use the git commandline tool to clone the repository.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/cincibrainlab/vhtp.git</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="installation-and-dependencies" class="level2">
+<h2 class="anchored" data-anchor-id="installation-and-dependencies">Installation and Dependencies</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="htpDoctor.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">htp “Doctor”</figcaption>
+</figure>
+</div>
+<p>To simplify the process of installation, we have created a commandline utility called <em>htpDoctor</em>. The “doctor” checks your system to verify any needed toolkits, plugins, or dependencies for a functional vHTP install. If any of the required toolkits are missing, the htpDoctor provides several automatic fixing options.</p>
+<section id="using-the-htpdoctor" class="level3">
+<h3 class="anchored" data-anchor-id="using-the-htpdoctor">Using the htpDoctor</h3>
+<p>The htpDoctor is a commandline utility that can be run from the MATLAB command window.</p>
+<p>After downloading the vHTP EEG Pipeline, navigate to the vHTP directory and run the htpDoctor from the MATLAB command window:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="va">htpDoctor</span><span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="key-features-1" class="level3">
+<h3 class="anchored" data-anchor-id="key-features-1">Key Features:</h3>
+<ol type="1">
+<li><p><em>Toolkit Verification:</em> The htpDoctor performs a series of checks to verify the availability and installation of essential toolkits such as EEGlab, Brainstorm, Biosig, BRAPH, and BCT (Brain Connectivity Toolbox). It also checks for the presence of specific EEGlab plugins like clean_rawdata, ICLabel, viewprops, and firfilt.</p></li>
+<li><p><em>Detailed Output:</em> The htpDoctor provides informative output messages for each verification step, indicating whether the toolkit is available or requires fixing. It also displays the relevant fix commands, making it easy for users to rectify any issues.</p></li>
+<li><p><em>Automatic Fixing:</em> In case any of the required toolkits are missing or not properly installed, the htpDoctor provides automatic fixing options. It guides users through the installation or configuration process, ensuring that the toolkits are set up correctly.</p></li>
+<li><p><em>Path Generation:</em> The htpDoctor generates the necessary path names for each verified toolkit. It provides the directory paths for the installed toolkits, allowing users to easily access and work with them in their EEG analysis workflow.</p></li>
+</ol>
 
 
+</section>
+</section>
+</section>
 
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="EEG,Matlab,documentation" data-listing-date-sort="1687910400000" data-listing-file-modified-sort="1687973718050" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3">
-<div class="thumbnail">
-<p><a href="./posts/post-with-code/index.html"> <img src="./posts/post-with-code/87449739.png" class="thumbnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./posts/post-with-code/index.html">
-<h3 class="no-anchor listing-title">
-vHTP Import Documentation
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('EEG'); return false;">
-EEG
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Matlab'); return false;">
-Matlab
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('documentation'); return false;">
-documentation
-</div>
-</div>
-<a href="./posts/post-with-code/index.html">
-<div class="listing-description">
-The MATLAB EEG Import Utility is a tool designed to import machine-specific EEG files into EEGLAB SET format. It provides a…
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/post-with-code/index.html">
-<div class="listing-date">
-Jun 28, 2023
-</div>
-<div class="listing-author">
-E. Pedapati
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="vhtp,eeglab,matlab,preprocessing,eeg" data-listing-date-sort="1687651200000" data-listing-file-modified-sort="1687971469782" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3">
-<div class="thumbnail">
-<p><a href="./posts/htpimport/index.html"> <p class="card-img-top"><img src="posts/htpimport/import_gui.png"  class="thumbnail-image card-img"/></p> </a></p>
-</div>
-<div class="body">
-<a href="./posts/htpimport/index.html">
-<h3 class="no-anchor listing-title">
-Introducing the vHTP Import Utility
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('vhtp'); return false;">
-vhtp
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('eeglab'); return false;">
-eeglab
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('matlab'); return false;">
-matlab
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('preprocessing'); return false;">
-preprocessing
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('eeg'); return false;">
-eeg
-</div>
-</div>
-<a href="./posts/htpimport/index.html">
-<div class="listing-description">
-Importing and managing EEG files can be a complex task, especially when working with different recording systems and directories. The vHTP Import Utility is a MATLAB tool…
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/htpimport/index.html">
-<div class="listing-date">
-Jun 25, 2023
-</div>
-<div class="listing-author">
-Ernie Pedapati
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

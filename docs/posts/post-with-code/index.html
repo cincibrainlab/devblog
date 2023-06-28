@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
-<head>
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.433">
 
-<meta charset="utf-8" />
-<meta name="generator" content="quarto-1.3.433" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<meta name="author" content="E. Pedapati">
+<meta name="dcterms.date" content="2023-06-28">
 
-
-<title>Cincinnati Brain Lab Development Blog – About Us</title>
+<title>Cincinnati Brain Lab Development Blog - vHTP Import Documentation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -24,7 +24,23 @@ ul.task-list li input[type="checkbox"] {
 }
 </style>
 
-<!-- htmldependencies:E3FAD763 -->
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -47,45 +63,37 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
-<body>
+<body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
-    <a class="navbar-brand" href="/index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Cincinnati Brain Lab Development Blog</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
-  aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation"
-  onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="/about.html" rel="" target="">
+    <a class="nav-link" href="../../about.html" rel="" target="">
  <span class="menu-text">About Us</span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/cincibrainlab" rel="" target=""><i 
-  class="bi bi-github" 
-  role="img" 
->
+    <a class="nav-link" href="https://github.com/cincibrainlab" rel="" target=""><i class="bi bi-github" role="img">
 </i> 
  <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://twitter.com/cbrainlab" rel="" target=""><i 
-  class="bi bi-twitter" 
-  role="img" 
->
+    <a class="nav-link" href="https://twitter.com/cbrainlab" rel="" target=""><i class="bi bi-twitter" role="img">
 </i> 
  <span class="menu-text"></span></a>
   </li>  
@@ -97,67 +105,116 @@ ul.task-list li input[type="checkbox"] {
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">vHTP Import Documentation</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">EEG</div>
+                <div class="quarto-category">Matlab</div>
+                <div class="quarto-category">documentation</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>E. Pedapati </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">June 28, 2023</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <div id="quarto-toc-target"></div>
-    </div>
+    
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">About Us</h1>
+
+
+
+<section id="vhtp-import-tool-documentation" class="level1">
+<h1>vHTP Import Tool Documentation</h1>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>The MATLAB EEG Import Utility is a tool designed to import machine-specific EEG files into EEGLAB SET format. It provides a graphical user interface (GUI) for easy file selection, system configuration, and file importing. This documentation will guide you through the process of using the utility effectively.</p>
+</section>
+<section id="installation-and-requirements" class="level2">
+<h2 class="anchored" data-anchor-id="installation-and-requirements">Installation and Requirements</h2>
+<p>Though other dependencies may be needed to run preprocessing and analysis functions from the larger vHTP toolkit, the EEG Import Utility only requires MATLAB and EEGLAB to run. The following software versions are recommended:</p>
+<ul>
+<li>MATLAB R2019a or later</li>
+<li>EEGLAB 14 or later with the Biosig plugin</li>
+</ul>
+</section>
+<section id="custom-import-functions" class="level2">
+<h2 class="anchored" data-anchor-id="custom-import-functions">Custom import functions</h2>
+<p>If you have custom import functions, please log an issue on the GitHub repository and we will work with you to integrate them into the utility.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-
-
-
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-</header>
-
-<p>Welcome to the Development Blog for the Cincinnati Brain Lab. We are a group of dedicated researchers, clinicians, and data scientists engaged in the pursuit of groundbreaking research in the field of computational neuroscience primarily in clinical populations.</p>
-<div class="quarto-layout-panel">
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div class="quarto-layout-cell" style="flex-basis: 52.4%;justify-content: center;">
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><em>SET Files</em> are an option and will move SET files from one directory to another without any conversion. This may be useful for moving batches of SET files out of a directory of BIDS structure, for example.</p>
+</div>
+</div>
+</section>
+<section id="user-interface-overview" class="level2">
+<h2 class="anchored" data-anchor-id="user-interface-overview">User Interface Overview</h2>
 <div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img src="figures/3gS_BZD4.png" class="img-fluid" width="275" /></p>
-<figcaption>Visual HTP</figcaption>
+<figure class="figure">
+<p><img src="htpImportGui with Steps.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Annotated vHTP Import Tool Interface</figcaption>
 </figure>
 </div>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 47.6%;justify-content: center;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img src="figures/sflogo.png" class="img-fluid" width="250" /></p>
-<figcaption>SignalFlow</figcaption>
-</figure>
-</div>
-</div>
-</div>
-</div>
-<p>Our Github is primarily devoted to developing signal processing software for dense array EEG. The <a href="https://github.com/cincibrainlab/vhtp">Visual High Throughput Pipeline</a> has been used in our laboratory to process 1000s of EEG including murine recordings and used in peer review publications. We are currently developing a pipeline framework, <a href="https://github.com/cincibrainlab/SignalFlowEEG_HBCD">SignalFlow</a> to rapidly deploy and iterate preprocessing and analysis variations.</p>
-<p>Our focus is on Neurodevelopmental disorders including Fragile X Syndrome and autism, including physiology studies, non invasive brain stimulation, and interventional trials. We are broadly funded including grants from the NIH, Autism Speaks, Cincinnati Children’s Hospital Research Foundation, FRAXA, and biotech and industry partners.</p>
-<div id="quarto-navigation-envelope" class="hidden">
-<p><span class="hidden" data-render-id="quarto-int-sidebar-title">Cincinnati Brain Lab Development Blog</span> <span class="hidden" data-render-id="quarto-int-navbar-title">Cincinnati Brain Lab Development Blog</span> <span class="hidden" data-render-id="quarto-int-navbar:About Us">About Us</span> <span class="hidden" data-render-id="quarto-int-navbar:/about.html">/about.html</span> <span class="hidden" data-render-id="quarto-int-navbar:https://github.com/cincibrainlab">https://github.com/cincibrainlab</span> <span class="hidden" data-render-id="quarto-int-navbar:https://twitter.com/cbrainlab">https://twitter.com/cbrainlab</span></p>
-</div>
-<div id="quarto-about-pipeline" class="hidden">
-<p><span class="hidden" data-render-id="Twitter">Twitter</span> <span class="hidden" data-render-id="Github">Github</span></p>
-</div>
-<div id="quarto-meta-markdown" class="hidden">
-<p><span class="hidden" data-render-id="quarto-metatitle">Cincinnati Brain Lab Development Blog - About Us</span> <span class="hidden" data-render-id="quarto-twittercardtitle">Cincinnati Brain Lab Development Blog - About Us</span> <span class="hidden" data-render-id="quarto-ogcardtitle">Cincinnati Brain Lab Development Blog - About Us</span> <span class="hidden" data-render-id="quarto-metasitename">Cincinnati Brain Lab Development Blog</span> <span class="hidden" data-render-id="quarto-twittercarddesc"></span> <span class="hidden" data-render-id="quarto-ogcardddesc"></span></p>
-</div>
+<p>The EEG Import Utility GUI consists of several components, including buttons, checkboxes, labels, and a table. Here is an overview of the main components:</p>
+<ol type="1">
+<li><p><em>Installation Status:</em> These indicators show whether the EEG Import Utility is installed and ready to use. These indicators are based on the <a href="">htpDoctor</a> function, which checks for the presence of the required dependencies.</p></li>
+<li><p><em>Select directory of machine-specific EEG or SET files:</em> Use this field to specify the directory containing the EEG files you want to import. Click the “Select Path” button to choose the directory using the file dialog.</p></li>
+<li><p><em>Search subfolders</em>: Check this box to include subfolders in the search for EEG files.</p></li>
+<li><p><em>Output SET Directory:</em> Specify the directory where the exported SET files will be saved. Click the “Select Path” button to choose the output directory using the file dialog.</p></li>
+<li><p><em>Key Word Filter:</em> Enter a keyword to filter the file list. Only files containing the keyword in their names will be displayed.</p></li>
+<li><p><em>Negate Filter:</em> Check this box to invert the filtering logic. Files that do not contain the specified keyword will be displayed.</p></li>
+<li><p><em>Select EEG System:</em> Choose the appropriate EEG system from the dropdown list. This selection determines the import settings for the files. <strong>If you do not see your system in the list, please log an issue on the GitHub repository.</strong></p></li>
+<li><p><em>Scan Files:</em> Click this button to scan the selected directory for EEG files. The file list (12) will be updated with the results of the scan.</p></li>
+<li><p>Test Import: This button performs a test import of the selected files. It displays the import results in the MATLAB Command Window.</p></li>
+<li><p>Convert to SET: Clicking this button starts the actual import process, converting the selected files to EEGLAB SET format and saving them in the output directory.</p></li>
+<li><p>Open Input and Output Folder: This button opens the input and output directory in the file explorer.</p></li>
+<li><p>File Import Table: This table displays the list of files found in the selected directory. It shows the filename and subfolder for each file.</p></li>
+</ol>
+</section>
+<section id="example-workflow-1-importing-a-directory-of-egi-128-channel-raw-files" class="level2">
+<h2 class="anchored" data-anchor-id="example-workflow-1-importing-a-directory-of-egi-128-channel-raw-files">Example Workflow 1: Importing a directory of EGI 128 Channel RAW files</h2>
+</section>
+<section id="example-workflow-2-importing-set-files-from-a-directory-of-bids-structures-by-keyword" class="level2">
+<h2 class="anchored" data-anchor-id="example-workflow-2-importing-set-files-from-a-directory-of-bids-structures-by-keyword">Example Workflow 2: Importing SET files from a directory of BIDS structures by keyword</h2>
+
+
+</section>
+</section>
 
 </main> <!-- /main -->
-<script id = "quarto-html-after-body" type="application/javascript">
+<script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -177,6 +234,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
   const isCodeAnnotation = (el) => {
     for (const clz of el.classList) {
       if (clz.startsWith('code-annotation-')) {                     
@@ -385,6 +449,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 </div> <!-- /content -->
 
-</body>
 
-</html>
+
+</body></html>

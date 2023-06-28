@@ -1,6 +1,6 @@
 project:
   type: website
-
+  output-dir: docs
 website:
   title: "Cincinnati Brain Lab Development Blog"
   navbar:
