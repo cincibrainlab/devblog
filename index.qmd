@@ -1,0 +1,13 @@
+---
+title: "Building a Weather App Using React and APIs"
+author: "John Doe"
+date: "2023-06-28"
+output: html_document
+---
+
+## Introduction
+
+In this blog post, we will guide you on how to create a simple weather application using React.js and weather APIs.
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
