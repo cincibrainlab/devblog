@@ -1,0 +1,26 @@
+---
+title: "About Us"
+image: 87449739.png
+about:
+  template: jolla
+  links:
+    - icon: twitter
+      text: Twitter
+      href: https://twitter.com/cbrainlab
+    - icon: github
+      text: Github
+      href: https://github.com/cincibrainlab
+
+---
+
+Welcome to the Development Blog for the Cincinnati Brain Lab. We are a group of dedicated researchers, clinicians, and data scientists engaged in the pursuit of groundbreaking research in the field of computational neuroscience primarily in clinical populations.
+
+::: {layout-ncol=2}
+![Visual HTP](figures/3gS_BZD4.png){width=275}
+
+![SignalFlow](figures/sflogo.png){width=250}
+:::
+
+Our Github is primarily devoted to developing signal processing software for dense array EEG. The [Visual High Throughput Pipeline](https://github.com/cincibrainlab/vhtp) has been used in our laboratory to process 1000s of EEG including murine recordings and used in peer review publications. We are currently developing a pipeline framework, [SignalFlow](https://github.com/cincibrainlab/SignalFlowEEG_HBCD) to rapidly deploy and iterate preprocessing and analysis variations. 
+
+Our focus is on Neurodevelopmental disorders including Fragile X Syndrome and autism, including physiology studies, non invasive brain stimulation, and interventional trials. We are broadly funded including grants from the NIH, Autism Speaks, Cincinnati Children's Hospital Research Foundation, FRAXA, and biotech and industry partners.

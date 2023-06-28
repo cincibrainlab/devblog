@@ -1,0 +1,30 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Cincinnati Brain Lab Development Blog",
+    "section": "",
+    "text": "Post With Code\n\n\n\n\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\n\n\n\n\nJun 28, 2023\n\n\nHarlow Malloc\n\n\n\n\n\n\n  \n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\n\n\nJun 25, 2023\n\n\nTristan O’Malley\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "posts/post-with-code/index.html",
+    "href": "posts/post-with-code/index.html",
+    "title": "Post With Code",
+    "section": "",
+    "text": "This is a post with executable code."
+  },
+  {
+    "objectID": "posts/welcome/index.html",
+    "href": "posts/welcome/index.html",
+    "title": "Welcome To My Blog",
+    "section": "",
+    "text": "This is the first post in a Quarto blog. Welcome!\n\nSince this post doesn’t specify an explicit image, the first image in the post will be used in the listing page of posts."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About Us",
+    "section": "",
+    "text": "Welcome to the Development Blog for the Cincinnati Brain Lab. We are a group of dedicated researchers, clinicians, and data scientists engaged in the pursuit of groundbreaking research in the field of computational neuroscience primarily in clinical populations.\n\n\n\n\n\n\nVisual HTP\n\n\n\n\n\n\n\nSignalFlow\n\n\n\n\n\nOur Github is primarily devoted to developing signal processing software for dense array EEG. The Visual High Throughput Pipeline has been used in our laboratory to process 1000s of EEG including murine recordings and used in peer review publications. We are currently developing a pipeline framework, SignalFlow to rapidly deploy and iterate preprocessing and analysis variations.\nOur focus is on Neurodevelopmental disorders including Fragile X Syndrome and autism, including physiology studies, non invasive brain stimulation, and interventional trials. We are broadly funded including grants from the NIH, Autism Speaks, Cincinnati Children’s Hospital Research Foundation, FRAXA, and biotech and industry partners."
+  }
+]
