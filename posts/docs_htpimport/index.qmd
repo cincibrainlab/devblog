@@ -71,11 +71,11 @@ We have implemented  import functions for the following EEG systems:
 - EGI Hydrocel 32 (EGI32): 32-electrode HydroCel Geodesic Sensor Net. 
 - EGI Hydrocel 64 (EGI64): 64-electrode HydroCel Geodesic Sensor Net.
 - MEA 30 (MEA30): Neuronexus murine MEA 30 system.
+- MEA 30 DAT (MEA3ODAT): Variant of the MEA 30 system using DAT extension.
 - MEARHD32: Variant of the MEA 30 system with 32 channels.
 - Brainvision NIRS (BVNIRS): This is a near-infrared spectroscopy (NIRS) joint EEG system from Brainvision, which can measure brain activity based on changes in blood oxygenation and volume.
 - Brainvision 64 (BV64): This is a 64-channel EEG system from Brainvision.
 - EDF Generic (EDFGENERIC): General EDF format. This is a generic format that can be used for a variety of EEG systems.
-- MEA 30 DAT (MEA3ODAT): Variant of the MEA 30 system using DAT extension.
 - EEGLAB SET (SET): EEG data stored in the format used by EEGLAB, a popular MATLAB toolbox for EEG analysis.
 
 ::: {.callout-warning}
