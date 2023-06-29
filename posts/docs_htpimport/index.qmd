@@ -1,0 +1,152 @@
+---
+title: "vHTP Import Tool Documentation"
+author: "E. Pedapati"
+date: "2023-06-28"
+categories: [EEG, Matlab, documentation]
+image: "htpImportGui%20with%20Steps.png"
+---
+
+# vHTP Import Tool Documentation
+
+## Introduction
+The MATLAB vHTP Import Tool is a tool designed to import machine-specific EEG files into EEGLAB SET format. It provides a graphical user interface (GUI) for easy file selection, system configuration, and file importing. This documentation will guide you through the process of using the utility effectively.
+
+## Installation and Requirements
+Though other dependencies may be needed to run preprocessing and analysis functions from the larger vHTP toolkit, the vHTP Import Tool only requires MATLAB and EEGLAB to run. 
+
+The following software versions are recommended:
+
+- MATLAB R2019a or later
+- EEGLAB 14 or later with the Biosig plugin
+
+## Custom import functions
+
+If you have custom import functions, please log an issue on the GitHub repository and we will work with you to integrate them into the utility.
+
+::: {.callout-warning}
+We have modified the default EEGLAB Raw import function to use an alternative EEG montage (chanfiles/GSN-Hydrocel-129.sfp). Please check the channel locations of your imported data to ensure that they are correct.
+:::
+
+::: {.callout-note}
+*SET Files* are an option and will move SET files from one directory to another without any conversion. This may be useful for moving batches of SET files out of a directory of BIDS structure, for example.
+:::
+
+## User Interface Overview
+
+![Annotated vHTP Import Tool Interface](htpImportGui%20with%20Steps.png)
+
+The vHTP Import Tool consists of several components, including buttons, checkboxes, labels, and a table. Here is an overview of the main components:
+
+1. *Installation Status:* These indicators show whether the vHTP Import Tool is installed and ready to use. These indicators are based on the [htpDoctor]() function, which checks for the presence of the required dependencies.
+
+1. *Select directory of machine-specific EEG or SET files:* Use this field to specify the directory containing the EEG files you want to import. Click the "Select Path" button to choose the directory using the file dialog.
+
+1. *Search subfolders*: Check this box to include subfolders in the search for EEG files.
+
+1. *Output SET Directory:* Specify the directory where the exported SET files will be saved. Click the "Select Path" button to choose the output directory using the file dialog.
+
+1. *Key Word Filter:* Enter a keyword to filter the file list. Only files containing the keyword in their names will be displayed.
+
+1. *Negate Filter:* Check this box to invert the filtering logic. Files that do not contain the specified keyword will be displayed.
+
+1. *Select EEG System:* Choose the appropriate EEG system from the dropdown list. This selection determines the import settings for the files. **If you do not see your system in the list, please log an issue on the GitHub repository.**
+
+1. *Scan Files:* Click this button to scan the selected directory for EEG files. The file list (12) will be updated with the results of the scan.
+
+1. Test Import: This button performs a test import of the selected files. It displays the import results in the MATLAB Command Window.
+
+1. Convert to SET: Clicking this button starts the actual import process, converting the selected files to EEGLAB SET format and saving them in the output directory.
+
+1. Open Input and Output Folder: This button opens the input and output directory in the file explorer.
+
+1. File Import Table: This table displays the list of files found in the selected directory. It shows the filename and subfolder for each file.
+
+## Supported EEG Systems
+
+The vHTP pipeline import functions serve as a wrapper for specific toolboxes. For example, the tool can import mouse multielectrode array (MEA) data and uses a custom function provided by the manufacturer. Other functions are implemented via EEGLAB and the Biosig plugin.
+
+We have implemented  import functions for the following EEG systems:
+
+- EGI Hydrocel 128 (EGI128): This system from Electrical Geodesics Inc. (EGI) uses a HydroCel Geodesic Sensor Net with 128 electrodes.
+- EGI Hydrocel 32 (EGI32): 32-electrode HydroCel Geodesic Sensor Net. 
+- EGI Hydrocel 64 (EGI64): 64-electrode HydroCel Geodesic Sensor Net.
+- MEA 30 (MEA30): Neuronexus murine MEA 30 system.
+- MEARHD32: Variant of the MEA 30 system with 32 channels.
+- Brainvision NIRS (BVNIRS): This is a near-infrared spectroscopy (NIRS) joint EEG system from Brainvision, which can measure brain activity based on changes in blood oxygenation and volume.
+- Brainvision 64 (BV64): This is a 64-channel EEG system from Brainvision.
+- EDF Generic (EDFGENERIC): General EDF format. This is a generic format that can be used for a variety of EEG systems.
+- MEA 30 DAT (MEA3ODAT): Variant of the MEA 30 system using DAT extension.
+- EEGLAB SET (SET): EEG data stored in the format used by EEGLAB, a popular MATLAB toolbox for EEG analysis.
+
+::: {.callout-warning}
+The tool is designed to only import one type of EEG system and channel montage at a time. If you have multiple EEG systems, you will need to run the tool multiple times.
+:::
+
+::: {.callout-tip}
+If you are interested in adding custom import functions or channel montages, feel free to contact our team. The the process involves adding a custom routine to the *util_htpimportEeg.m* and updating the *cfg_htpEegSystems.xml* with channel details. The dropdown menu will automatically update with the new system.
+:::
+
+## Example Workflow 1: Importing a directory of EGI 128 Channel RAW files
+
+1. Select the directory containing the EGI 128 Channel RAW files you want to import. You can use the "Search subfolders" checkbox to include subfolders in the search.
+
+![Folder of Raw Files](docs_vhtpimport_rawfiles.png)
+
+1. Select the directory where you want to save the converted SET files.
+
+1. Select "EGI 128 Channel" from the "Select EEG System" dropdown list.
+
+1. Click the "Scan Files" button to scan the directory for EEG files. The file list table will be updated with the results of the scan.
+
+![Interface](docs_vhtpimport_interface.png)
+
+1. Click the "Test Import" button to perform a test import of the selected files. The import results will be displayed in the MATLAB Command Window.
+
+1. Click the "Convert to SET" button to start the actual import process. The converted SET files will be saved in the output directory. The MATLAB console window will display the import operation details.
+
+1. Click the "Open Input and Output Folder" button to open the input and output directories in the file explorer.
+
+## Reviewing the Import Results
+
+![Import Results](docs_vhtpimport_folder.png)
+
+1. *Results*: The output directory will contain the converted SET files (see #1).
+
+2. *Channel Locations*: The output directory will also contain a image file containing a topoplot of the 2d channel locations. Use this image to confirm that the channel montage is correct (see #2).
+
+3. *File List*: The file list in CSV format of the files that were imported is also saved in the output directory (see #3).
+
+## Example Workflow 2: Importing SET files from a directory of BIDS structures by keyword
+
+In certain cases, you may want to "import" SET files from one location to another without any conversion. This may be useful for moving batches of SET files out of a directory of BIDS structures. The generated CSV file can be used to load SET files for serial processing.
+
+In this example, we will import SET files from a directory of BIDS structures into a single directory. We will use the "Key Word Filter" to select only the files we want to import to only import files with "VEP" in the filename.
+
+::: {.callout-note}
+Rather than do a file copy function, we have opted to load the SET file using the EEGLAB function pop_loadset(). This allows us to check the integrity of the SET file and ensure that it is not corrupted. The record of this import will be available in the MATLAB Command Window.
+:::
+
+## Using vHTP Import Tool with BIDS structures
+
+![BIDS Example](docs_vhtpimport_bids.png)
+
+1. Select the directory containing the BIDS structures you want to import. Here we select a folder with a BIDS structure containing multiple EEGs for a single subject. This may also include a folder with multiple subjects. Also, select the directory where you want to save the converted SET files.
+
+2. By leaving the "Ignore Subfolders" checkbox unchecked, the vHTP Import Tool will scan all subfolders for EEG files.
+
+3. Enter a keyword term to filter the file list. Only files containing the keyword in their names will be imported. Here we use "VEP" to only import files with "VEP" in the filename.
+
+4. The "Negate Filter" checkbox can be used to invert the filtering logic. Files that do not contain the specified keyword will be imported.
+
+5. Select "SET Files" from the "Select EEG System" dropdown list. This will move the SET files from the BIDS structure to the output directory without any conversion. 
+
+6. Click the "Scan Files" button to scan the directory for EEG files. The file list table will be updated with the results of the scan.
+
+7. Click the "Convert to SET" button to start the actual import process. The converted SET files will be saved in the output directory. 
+
+## Summary
+
+The vHTP Import Tool is a utility for converting to SET files. In some cases, it may be used to move SET files from one location to another. It is designed to be easy to use and to provide a consistent interface for importing EEG files from different systems. It is also designed to be extensible, so that custom import functions and channel montages can be added to the utility.
+
+The result of the tool is a set of SET files that can be loaded into EEGLAB for further processing. The tool also generates a CSV file containing a list of the imported files. A channel montage image is also generated for checking the channel locations.
+

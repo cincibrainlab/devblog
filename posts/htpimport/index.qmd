@@ -3,6 +3,7 @@ title: "Introducing the vHTP Import Utility"
 author: "Ernie Pedapati"
 date: "2023-06-25"
 categories: [vhtp,eeglab, matlab, preprocessing, eeg]
+image: "import_gui.png"
 ---
 
 # Introducing the vHTP Import Utility: Simplifying the Import of EEG Files
