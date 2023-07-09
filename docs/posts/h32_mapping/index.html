@@ -1,0 +1,2072 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.433">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Ernie Pedapati">
+<meta name="dcterms.date" content="2023-07-01">
+
+<title>Cincinnati Brain Lab Development Blog - Neuronexus EEG Probe Mapping</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Cincinnati Brain Lab Development Blog</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html" rel="" target="">
+ <span class="menu-text">About Us</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/cincibrainlab" rel="" target=""><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/cbrainlab" rel="" target=""><i class="bi bi-twitter" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Neuronexus EEG Probe Mapping</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">vhtp</div>
+                <div class="quarto-category">mouse</div>
+                <div class="quarto-category">EEG</div>
+                <div class="quarto-category">Neuronexus</div>
+                <div class="quarto-category">probe</div>
+                <div class="quarto-category">mapping</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Ernie Pedapati </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">July 1, 2023</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<section id="neuronexus-eeg-probe-mapping" class="level1">
+<h1>Neuronexus EEG Probe Mapping</h1>
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>This protocol describes how to map the location of the Mouse EEG v2 H32 Probe with the OM Amplifier Adapter. For better or worse, like all custom probes mapping must be confirmed manually.</p>
+</section>
+<section id="probe-layout" class="level2">
+<h2 class="anchored" data-anchor-id="probe-layout">Probe Layout</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="h32-layout.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Layout of Mouse probe from Neuronexus</figcaption>
+</figure>
+</div>
+<p>Per Neuronexus the recordings are stored in the following format:</p>
+<blockquote class="blockquote">
+<p>Radiens saves primary time-series data sets (e.g., neural recordings) in a simple, open format. Each dataset (i.e.&nbsp;recording) is saved in a file set named ‘XDAT’ that consists of three files: (i) flat binary file containing the matrix of all sample values (typical in uV) across the multiple channels, (ii) flat binary file containing all timestamps, (iii) json text file containing enriched metadata. <a href="https://www.neuronexus.com/products/software/radiens#featurestab-6/">link</a></p>
+</blockquote>
+</section>
+<section id="view-the-raw-signal-data-using-matlab" class="level2">
+<h2 class="anchored" data-anchor-id="view-the-raw-signal-data-using-matlab">View the raw signal data using MATLAB</h2>
+<p>A native MATLAB function is available to import the XDAT dataset. The function is available https://github.com/nzgurel/AllegoProcessing_Matlab/tree/main with an example import script <a href="https://github.com/nzgurel/AllegoProcessing_Matlab/blob/main/read_allego_data_20210317.m">here</a>.</p>
+<p>The raw data array can be plotted using the EEGLAB functio eegplot:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="h32-rawdata.png" class="img-fluid figure-img" style="width:65.0%"></p>
+<figcaption class="figure-caption">Raw Data Tracing</figcaption>
+</figure>
+</div>
+<p>Here we can see that channels pri_1 and pri_31 are not connected to recording sites. As the naming index starts with 0, following import into MATLAB these will be channels indexes 1 and 32.</p>
+</section>
+<section id="view-and-export-the-metata-data-using-matlab" class="level2">
+<h2 class="anchored" data-anchor-id="view-and-export-the-metata-data-using-matlab">View and export the metata data using MATLAB</h2>
+<p>We can import metadata from the json file which contains infomation about the probe layout and recording and export it as a CSV file for further analysis.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">% MATLAB code to extract metadata from XDAT dataset</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">str</span> <span class="op">=</span> <span class="va">fileread</span>([<span class="va">xdat_filename</span> <span class="ss">'.xdat.json'</span>])<span class="op">;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="va">jsonData</span> <span class="op">=</span> <span class="va">jsondecode</span>(<span class="va">str</span>)<span class="op">;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">% extract metadata for probe mapping</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="va">H32Metadata</span> <span class="op">=</span> <span class="va">jsonData</span>.<span class="va">sapiens_base</span>.<span class="va">biointerface_map</span><span class="op">;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="co">% remove non-array fields</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="va">H32Metadata</span> <span class="op">=</span> <span class="va">rmfield</span>(<span class="va">H32Metadata</span><span class="op">,</span> <span class="ss">'samp_freq'</span>)<span class="op">;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="va">H32Metadata</span> <span class="op">=</span> <span class="va">rmfield</span>(<span class="va">H32Metadata</span><span class="op">,</span> <span class="ss">'sig_units'</span>)<span class="op">;</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="co">% save metadata as CSV</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="va">writetable</span>(<span class="va">struct2table</span>(<span class="va">H32Metadata</span>)<span class="op">,</span><span class="ss">'NeuroNexusMouseEEGv2H32_Map.csv'</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>For convenience, I have hosted the resulting CSV file on <a href="https://github.com/cincibrainlab/vhtp/blob/main/chanfiles/NeuroNexusMouseEEGv2H32_Map.csv">github</a> for futher analysis.</p>
+</section>
+<section id="examining-the-probe-metadata" class="level2">
+<h2 class="anchored" data-anchor-id="examining-the-probe-metadata">Examining the Probe Metadata</h2>
+<p>We will evalute the metadata in R to more easily plot and wrangle the data. First, we will load the CSV file from github and view the first 5 rows of the metadata.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load CSV file from github</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>H32Metadata <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://raw.githubusercontent.com/cincibrainlab/vhtp/main/chanfiles/NeuroNexusMouseEEGv2H32_Map.csv"</span>, <span class="at">col_types =</span> <span class="fu">cols</span>())</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># View the first 10 rows of the metadata</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>tb1 <span class="ot">&lt;-</span> H32Metadata <span class="sc">%&gt;%</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(<span class="dv">5</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Table 1:</strong> Table of XDAT dataset metadata for the Mouse EEG v2 H32 Probe.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">chan_name</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">chan_type</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">ntv_chan_idx</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">ntv_chan_name</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">sys_chan_idx</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">site_shape</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">port</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">absolute_idx</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">scs_to_tcs_y</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">site_lim_x_min</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">site_lim_z_max</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">site_ctr_y</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">headstage_id</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">site_ctr_z</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">site_ctr_x</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">site_ctr_tcs_x</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">site_lim_x_max</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">probe_id</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">site_ctr_tcs_y</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">site_num</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">sensor_units</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">scs_to_tcs_z</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">is_audio</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">is_audio_left</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">is_audio_right</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">is_selected</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">site_lim_y_min</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">site_lim_y_max</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">scs_to_tcs_x</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">site_lim_z_min</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">dsrc_uid</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">sensor_uid</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">site_ctr_tcs_z</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">color_grp_idx</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">pri_0</td>
+<td style="text-align: left;">ai0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">port_A_0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">circle</td>
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">674.114</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">404.99961</td>
+<td style="text-align: left;">hstg__passthrough_32</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">699.1136</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">724.114</td>
+<td style="text-align: left;">probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">uV</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">430</td>
+<td style="text-align: right;">380</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">SmartboxPro Signals</td>
+<td style="text-align: left;">hstg__passthrough_32/probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pri_1</td>
+<td style="text-align: left;">ai0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">port_A_1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">circle</td>
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">674.114</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">223.99961</td>
+<td style="text-align: left;">hstg__passthrough_32</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">699.1136</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">724.114</td>
+<td style="text-align: left;">probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">uV</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">249</td>
+<td style="text-align: right;">199</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">SmartboxPro Signals</td>
+<td style="text-align: left;">hstg__passthrough_32/probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pri_2</td>
+<td style="text-align: left;">ai0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">port_A_2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">circle</td>
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">674.114</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">99.99961</td>
+<td style="text-align: left;">hstg__passthrough_32</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">699.1136</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">724.114</td>
+<td style="text-align: left;">probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">uV</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">125</td>
+<td style="text-align: right;">75</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">SmartboxPro Signals</td>
+<td style="text-align: left;">hstg__passthrough_32/probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pri_3</td>
+<td style="text-align: left;">ai0</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">port_A_3</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">circle</td>
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">564.114</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">412.99961</td>
+<td style="text-align: left;">hstg__passthrough_32</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">589.1136</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">614.114</td>
+<td style="text-align: left;">probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">uV</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">438</td>
+<td style="text-align: right;">388</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">SmartboxPro Signals</td>
+<td style="text-align: left;">hstg__passthrough_32/probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pri_4</td>
+<td style="text-align: left;">ai0</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">port_A_4</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">circle</td>
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">564.114</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">287.99961</td>
+<td style="text-align: left;">hstg__passthrough_32</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">589.1136</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">614.114</td>
+<td style="text-align: left;">probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">uV</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">313</td>
+<td style="text-align: right;">263</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">SmartboxPro Signals</td>
+<td style="text-align: left;">hstg__passthrough_32/probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</section>
+<section id="evaluating-the-probe-metadata" class="level2">
+<h2 class="anchored" data-anchor-id="evaluating-the-probe-metadata">Evaluating the Probe Metadata</h2>
+<p>The metadata hasa several curosities that suggest using caution before incorporating it into your workflow.</p>
+<ol type="1">
+<li>The Murine EEG v2 H32 Probe has 30 channels, not 32 (pri_0 to pri_31), as indicated by the metadata.</li>
+<li>2D coordinate data is provided for the first 30 channels (pri_0 to pri_29), but not the last two (pri_30 and pri_31).</li>
+<li>There is no indication that channels pri_1 and pri_31 are not connected to recording sites.</li>
+</ol>
+<p>This can be seen more clearly by plotting out the channels and their coordinates on a 2d scatter plot. Indeed, this layout matches the mouse 30 lead layout above.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="h32-plotted-layout.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Metadata Plot</figcaption>
+</figure>
+</div>
+<p>This suggests that the metadata has the correct layout information but has not been adjusted foe the two unconnected channels. I don’t understand why this is the case, but I wil be reaching out to Neuronexus to confirm and will post their reponse.</p>
+</section>
+<section id="tracing-the-probe-electrodes-to-the-amplifier-adapter" class="level2">
+<h2 class="anchored" data-anchor-id="tracing-the-probe-electrodes-to-the-amplifier-adapter">Tracing the Probe electrodes to the amplifier adapter</h2>
+<p>The probe is connected to the headstage using the Ometics Amplifier Adapter (NPD-36-AA-GS). This connector has 36 ports and 4 guide posts.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="h32-adapter.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Amplifier Adapter</figcaption>
+</figure>
+</div>
+<p>These layouts are not necessarily easy to find in one place so I have included them stiched together here:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="h32-adapter2.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Amplifier Adapter Pin out</figcaption>
+</figure>
+</div>
+<p>The Neuronexus EEG Pin Out must be rotated to match the Amplifier Adapter Pin Out. To make it easier to visualize the matching channels, I have added red EEG channel number labels to the Amplifier Adapter Pin Out. Importantly, you can see that the Mouse 30-lead EEG leaves two channels unconnected (pri_1 and pri_31). This now clearly visible in the adapter image.</p>
+<p>Per the documentation the internal reference electrode is connected to R1. This corresponds to the “R” pin adjacent to the “0” pin once you account for the rotation of the pin out.</p>
+</section>
+</section>
+<section id="mapping-the-probe-to-the-amplifier-adapter-stage-1" class="level1">
+<h1>Mapping the Probe to the Amplifier Adapter Stage 1</h1>
+<p>The first step is to create a simple lookup table that disregards all metadata but the amplifier pin out (pri_) and the EEG probe channels (based on the connection).</p>
+<p>This mapping will correctly pair each EEG channel to the correct signal entering the amplifier, but will not have the correct 30 lead metadata till after we remove the unconnected channels.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>mea_to_hs_map <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"E1"</span>   <span class="ot">=</span> <span class="dv">29</span>,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"E2"</span>   <span class="ot">=</span> <span class="dv">27</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"E3"</span>   <span class="ot">=</span> <span class="dv">25</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"E4"</span>   <span class="ot">=</span> <span class="dv">23</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"E5"</span>   <span class="ot">=</span> <span class="dv">21</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"E6"</span>   <span class="ot">=</span> <span class="dv">19</span>,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"E7"</span>   <span class="ot">=</span> <span class="dv">17</span>,</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">"E8"</span>   <span class="ot">=</span> <span class="dv">30</span>,</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">"E9"</span>   <span class="ot">=</span> <span class="dv">28</span>,</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">"E10"</span>  <span class="ot">=</span> <span class="dv">26</span>,</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="st">"E11"</span>  <span class="ot">=</span> <span class="dv">24</span>,</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="st">"E12"</span>  <span class="ot">=</span> <span class="dv">22</span>,</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="st">"E13"</span>  <span class="ot">=</span> <span class="dv">20</span>,</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="st">"E14"</span>  <span class="ot">=</span> <span class="dv">18</span>,</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  <span class="st">"E15"</span>  <span class="ot">=</span> <span class="dv">16</span>,</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  <span class="st">"E16"</span>  <span class="ot">=</span> <span class="dv">14</span>,</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  <span class="st">"E17"</span>  <span class="ot">=</span> <span class="dv">12</span>,</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>  <span class="st">"E18"</span>  <span class="ot">=</span> <span class="dv">10</span>,</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>  <span class="st">"E19"</span>  <span class="ot">=</span> <span class="dv">8</span>,</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>  <span class="st">"E20"</span>  <span class="ot">=</span> <span class="dv">6</span>,</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>  <span class="st">"E21"</span>  <span class="ot">=</span> <span class="dv">4</span>,</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>  <span class="st">"E22"</span>  <span class="ot">=</span> <span class="dv">2</span>,</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>  <span class="st">"E23"</span>  <span class="ot">=</span> <span class="dv">0</span>,</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>  <span class="st">"E24"</span>  <span class="ot">=</span> <span class="dv">15</span>,</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>  <span class="st">"E25"</span>  <span class="ot">=</span> <span class="dv">13</span>,</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>  <span class="st">"E26"</span>  <span class="ot">=</span> <span class="dv">11</span>,</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>  <span class="st">"E27"</span>  <span class="ot">=</span> <span class="dv">9</span>,</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>  <span class="st">"E28"</span>  <span class="ot">=</span> <span class="dv">7</span>,</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>  <span class="st">"E29"</span>  <span class="ot">=</span> <span class="dv">5</span>,</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>  <span class="st">"E30"</span>  <span class="ot">=</span> <span class="dv">3</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a dataframe from the named list</span></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a><span class="co"># convert this to a dataframe</span></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>mea_to_hs_map_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(mea_to_hs_map) <span class="sc">%&gt;%</span></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">"mea"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">hs_idx =</span> mea_to_hs_map) <span class="sc">%&gt;%</span></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">headset =</span> <span class="fu">paste0</span>(<span class="st">"pri_"</span>, hs_idx)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">mea_formatted_name =</span> mea,</span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>         <span class="at">og_amplifier_pin =</span> headset,</span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>         <span class="at">amplifier_index =</span> hs_idx)</span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>mea_to_hs_map_df <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">3</span>) <span class="sc">%&gt;%</span> <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">mea_formatted_name</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">amplifier_index</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">og_amplifier_pin</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">E1</td>
+<td style="text-align: right;">29</td>
+<td style="text-align: left;">pri_29</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">E2</td>
+<td style="text-align: right;">27</td>
+<td style="text-align: left;">pri_27</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">E3</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: left;">pri_25</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(mea_to_hs_map_df, <span class="st">"MouseEEGv2H32_Import_Stage1.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The final table has the final formatted MEA channel name (E1 to E30) and the headset channel name (pri_0 to pri_29). The original index (starting with 1) is also included. We will save this file to use in MATLAB during import.</p>
+<p>The file can be downloaded <a href="MouseEEGv2H32_Import_Stage1.csv">here</a>.</p>
+<p>We can now accurately map which MEA channels correspond to which amplifier channels. The bad channels (pri_1 and pri_31) now make more sense as you can follow the mapping.</p>
+<section id="where-is-the-reference-channel" class="level3">
+<h3 class="anchored" data-anchor-id="where-is-the-reference-channel">Where is the reference channel?</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="h32-reference.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Reference Channel Info</figcaption>
+</figure>
+</div>
+<p>As of now, we cannot find data for the reference channel (R1) either in the metadata or from the raw read of the signal data. We will need to reach out to Neuronexus to confirm location of reference channel. Since the reference channel can either by an external wire or an internal channel determined by a physical jumper wire, we would not expect the metadata to contain this information inherently. However, the actual signal data should be present.</p>
+</section>
+</section>
+<section id="mapping-the-probe-to-the-amplifier-adapter-stage-2" class="level1">
+<h1>Mapping the Probe to the Amplifier Adapter Stage 2</h1>
+<p>Now that the mapping is complete, we can remove the unconnected channels and add the metadata to the mapping.</p>
+<p>As you can see from the manual plot above, pri_0 contains the correct metadata for electrode E1. However, in actuality E1 data is routed through pri_29.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="h32-path-of-one.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Alt text</figcaption>
+</figure>
+</div>
+<p>Thus, the metadata is now more accurately used as a lookup table for the probe channel and uncoupled from the amplifier channel. If we assigned the metadata for pri_29 to E1, the location would be incorrect. Let’s create a stage2 mapping that has the correct metadata (primarily coordinates) for each electrode.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># read metadata csv from github</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>mea_metadata <span class="ot">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/cincibrainlab/vhtp/main/chanfiles/NeuroNexusMouseEEGv2H32_Map.csv"</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>stage2 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(mea_metadata, <span class="at">col_types =</span> <span class="fu">cols</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sys_chan_idx <span class="sc">&lt;</span> <span class="dv">30</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">mea_formatted_name =</span> <span class="fu">paste0</span>(<span class="st">"E"</span>, sys_chan_idx<span class="sc">+</span><span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(mea_to_hs_map_df <span class="sc">%&gt;%</span> <span class="fu">select</span>(mea_formatted_name,og_amplifier_pin), <span class="at">by =</span> <span class="st">"mea_formatted_name"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(mea_formatted_name, <span class="at">.after =</span> chan_name) <span class="sc">%&gt;%</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(og_amplifier_pin, <span class="at">.after =</span> mea_formatted_name)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>stage2 <span class="sc">%&gt;%</span> <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">chan_name</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">mea_formatted_name</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">og_amplifier_pin</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">chan_type</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">ntv_chan_idx</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">ntv_chan_name</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">sys_chan_idx</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">site_shape</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">port</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">absolute_idx</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">scs_to_tcs_y</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">site_lim_x_min</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">site_lim_z_max</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">site_ctr_y</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">headstage_id</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">site_ctr_z</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">site_ctr_x</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">site_ctr_tcs_x</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">site_lim_x_max</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">probe_id</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">site_ctr_tcs_y</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">site_num</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">sensor_units</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">scs_to_tcs_z</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">is_audio</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">is_audio_left</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">is_audio_right</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">is_selected</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">site_lim_y_min</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">site_lim_y_max</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">scs_to_tcs_x</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">site_lim_z_min</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">dsrc_uid</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">sensor_uid</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">site_ctr_tcs_z</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">color_grp_idx</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">pri_0</td>
+<td style="text-align: left;">E1</td>
+<td style="text-align: left;">pri_29</td>
+<td style="text-align: left;">ai0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">port_A_0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">circle</td>
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">674.114</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">404.99961</td>
+<td style="text-align: left;">hstg__passthrough_32</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">699.11361</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">724.114</td>
+<td style="text-align: left;">probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">uV</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">430</td>
+<td style="text-align: right;">380</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">SmartboxPro Signals</td>
+<td style="text-align: left;">hstg__passthrough_32/probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pri_1</td>
+<td style="text-align: left;">E2</td>
+<td style="text-align: left;">pri_27</td>
+<td style="text-align: left;">ai0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">port_A_1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">circle</td>
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">674.114</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">223.99961</td>
+<td style="text-align: left;">hstg__passthrough_32</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">699.11361</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">724.114</td>
+<td style="text-align: left;">probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">uV</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">249</td>
+<td style="text-align: right;">199</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">SmartboxPro Signals</td>
+<td style="text-align: left;">hstg__passthrough_32/probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pri_2</td>
+<td style="text-align: left;">E3</td>
+<td style="text-align: left;">pri_25</td>
+<td style="text-align: left;">ai0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">port_A_2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">circle</td>
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">674.114</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">99.99961</td>
+<td style="text-align: left;">hstg__passthrough_32</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">699.11361</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">724.114</td>
+<td style="text-align: left;">probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">uV</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">125</td>
+<td style="text-align: right;">75</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">SmartboxPro Signals</td>
+<td style="text-align: left;">hstg__passthrough_32/probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pri_3</td>
+<td style="text-align: left;">E4</td>
+<td style="text-align: left;">pri_23</td>
+<td style="text-align: left;">ai0</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">port_A_3</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">circle</td>
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">564.114</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">412.99961</td>
+<td style="text-align: left;">hstg__passthrough_32</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">589.11361</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">614.114</td>
+<td style="text-align: left;">probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">uV</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">438</td>
+<td style="text-align: right;">388</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">SmartboxPro Signals</td>
+<td style="text-align: left;">hstg__passthrough_32/probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pri_4</td>
+<td style="text-align: left;">E5</td>
+<td style="text-align: left;">pri_21</td>
+<td style="text-align: left;">ai0</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">port_A_4</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">circle</td>
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">564.114</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">287.99961</td>
+<td style="text-align: left;">hstg__passthrough_32</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">589.11361</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">614.114</td>
+<td style="text-align: left;">probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">uV</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">313</td>
+<td style="text-align: right;">263</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">SmartboxPro Signals</td>
+<td style="text-align: left;">hstg__passthrough_32/probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pri_5</td>
+<td style="text-align: left;">E6</td>
+<td style="text-align: left;">pri_19</td>
+<td style="text-align: left;">ai0</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">port_A_5</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">circle</td>
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">564.114</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">112.99961</td>
+<td style="text-align: left;">hstg__passthrough_32</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">589.11361</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">614.114</td>
+<td style="text-align: left;">probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">uV</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">138</td>
+<td style="text-align: right;">88</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">SmartboxPro Signals</td>
+<td style="text-align: left;">hstg__passthrough_32/probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pri_6</td>
+<td style="text-align: left;">E7</td>
+<td style="text-align: left;">pri_17</td>
+<td style="text-align: left;">ai0</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">port_A_6</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">circle</td>
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">456.114</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">404.99961</td>
+<td style="text-align: left;">hstg__passthrough_32</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">481.11361</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">506.114</td>
+<td style="text-align: left;">probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">uV</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">430</td>
+<td style="text-align: right;">380</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">SmartboxPro Signals</td>
+<td style="text-align: left;">hstg__passthrough_32/probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pri_7</td>
+<td style="text-align: left;">E8</td>
+<td style="text-align: left;">pri_30</td>
+<td style="text-align: left;">ai0</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">port_A_7</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">circle</td>
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">456.114</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">287.99961</td>
+<td style="text-align: left;">hstg__passthrough_32</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">481.11361</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">506.114</td>
+<td style="text-align: left;">probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">uV</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">313</td>
+<td style="text-align: right;">263</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">SmartboxPro Signals</td>
+<td style="text-align: left;">hstg__passthrough_32/probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pri_8</td>
+<td style="text-align: left;">E9</td>
+<td style="text-align: left;">pri_28</td>
+<td style="text-align: left;">ai0</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">port_A_8</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">circle</td>
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">456.114</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">111.99961</td>
+<td style="text-align: left;">hstg__passthrough_32</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">481.11361</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">506.114</td>
+<td style="text-align: left;">probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: left;">uV</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">137</td>
+<td style="text-align: right;">87</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">SmartboxPro Signals</td>
+<td style="text-align: left;">hstg__passthrough_32/probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pri_9</td>
+<td style="text-align: left;">E10</td>
+<td style="text-align: left;">pri_26</td>
+<td style="text-align: left;">ai0</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: left;">port_A_9</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: left;">circle</td>
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">308.114</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">349.99961</td>
+<td style="text-align: left;">hstg__passthrough_32</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">333.11361</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">358.114</td>
+<td style="text-align: left;">probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">uV</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">375</td>
+<td style="text-align: right;">325</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">SmartboxPro Signals</td>
+<td style="text-align: left;">hstg__passthrough_32/probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pri_10</td>
+<td style="text-align: left;">E11</td>
+<td style="text-align: left;">pri_24</td>
+<td style="text-align: left;">ai0</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">port_A_10</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">circle</td>
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">308.114</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">211.99961</td>
+<td style="text-align: left;">hstg__passthrough_32</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">333.11361</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">358.114</td>
+<td style="text-align: left;">probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">uV</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">237</td>
+<td style="text-align: right;">187</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">SmartboxPro Signals</td>
+<td style="text-align: left;">hstg__passthrough_32/probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pri_11</td>
+<td style="text-align: left;">E12</td>
+<td style="text-align: left;">pri_22</td>
+<td style="text-align: left;">ai0</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">port_A_11</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">circle</td>
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">156.114</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">192.99961</td>
+<td style="text-align: left;">hstg__passthrough_32</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">181.11439</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">206.114</td>
+<td style="text-align: left;">probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">uV</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">218</td>
+<td style="text-align: right;">168</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">SmartboxPro Signals</td>
+<td style="text-align: left;">hstg__passthrough_32/probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pri_12</td>
+<td style="text-align: left;">E13</td>
+<td style="text-align: left;">pri_20</td>
+<td style="text-align: left;">ai0</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">port_A_12</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">circle</td>
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">156.114</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">54.99961</td>
+<td style="text-align: left;">hstg__passthrough_32</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">181.11439</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">206.114</td>
+<td style="text-align: left;">probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: left;">uV</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">80</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">SmartboxPro Signals</td>
+<td style="text-align: left;">hstg__passthrough_32/probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pri_13</td>
+<td style="text-align: left;">E14</td>
+<td style="text-align: left;">pri_18</td>
+<td style="text-align: left;">ai0</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: left;">port_A_13</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: left;">circle</td>
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">30.114</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">149.99961</td>
+<td style="text-align: left;">hstg__passthrough_32</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">55.11439</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">80.114</td>
+<td style="text-align: left;">probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: left;">uV</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">175</td>
+<td style="text-align: right;">125</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">SmartboxPro Signals</td>
+<td style="text-align: left;">hstg__passthrough_32/probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pri_14</td>
+<td style="text-align: left;">E15</td>
+<td style="text-align: left;">pri_16</td>
+<td style="text-align: left;">ai0</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: left;">port_A_14</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: left;">circle</td>
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">30.114</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">49.99961</td>
+<td style="text-align: left;">hstg__passthrough_32</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">55.11439</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">80.114</td>
+<td style="text-align: left;">probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: left;">uV</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">75</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">SmartboxPro Signals</td>
+<td style="text-align: left;">hstg__passthrough_32/probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pri_15</td>
+<td style="text-align: left;">E16</td>
+<td style="text-align: left;">pri_14</td>
+<td style="text-align: left;">ai0</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: left;">port_A_15</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: left;">circle</td>
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">30.114</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">-49.99961</td>
+<td style="text-align: left;">hstg__passthrough_32</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">55.11439</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">80.114</td>
+<td style="text-align: left;">probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: left;">uV</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">-25</td>
+<td style="text-align: right;">-75</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">SmartboxPro Signals</td>
+<td style="text-align: left;">hstg__passthrough_32/probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pri_16</td>
+<td style="text-align: left;">E17</td>
+<td style="text-align: left;">pri_12</td>
+<td style="text-align: left;">ai0</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: left;">port_A_16</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: left;">circle</td>
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">30.114</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">-149.99961</td>
+<td style="text-align: left;">hstg__passthrough_32</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">55.11439</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">80.114</td>
+<td style="text-align: left;">probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: left;">uV</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">-125</td>
+<td style="text-align: right;">-175</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">SmartboxPro Signals</td>
+<td style="text-align: left;">hstg__passthrough_32/probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pri_17</td>
+<td style="text-align: left;">E18</td>
+<td style="text-align: left;">pri_10</td>
+<td style="text-align: left;">ai0</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: left;">port_A_17</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: left;">circle</td>
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">156.114</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">-54.99961</td>
+<td style="text-align: left;">hstg__passthrough_32</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">181.11439</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">206.114</td>
+<td style="text-align: left;">probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: left;">uV</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">-30</td>
+<td style="text-align: right;">-80</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">SmartboxPro Signals</td>
+<td style="text-align: left;">hstg__passthrough_32/probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pri_18</td>
+<td style="text-align: left;">E19</td>
+<td style="text-align: left;">pri_8</td>
+<td style="text-align: left;">ai0</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: left;">port_A_18</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: left;">circle</td>
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">156.114</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">-192.99961</td>
+<td style="text-align: left;">hstg__passthrough_32</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">181.11439</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">206.114</td>
+<td style="text-align: left;">probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: left;">uV</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">-168</td>
+<td style="text-align: right;">-218</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">SmartboxPro Signals</td>
+<td style="text-align: left;">hstg__passthrough_32/probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pri_19</td>
+<td style="text-align: left;">E20</td>
+<td style="text-align: left;">pri_6</td>
+<td style="text-align: left;">ai0</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: left;">port_A_19</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: left;">circle</td>
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">308.114</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">-211.99961</td>
+<td style="text-align: left;">hstg__passthrough_32</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">333.11361</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">358.114</td>
+<td style="text-align: left;">probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: left;">uV</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">-187</td>
+<td style="text-align: right;">-237</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">SmartboxPro Signals</td>
+<td style="text-align: left;">hstg__passthrough_32/probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pri_20</td>
+<td style="text-align: left;">E21</td>
+<td style="text-align: left;">pri_4</td>
+<td style="text-align: left;">ai0</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: left;">port_A_20</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: left;">circle</td>
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">308.114</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">-349.99961</td>
+<td style="text-align: left;">hstg__passthrough_32</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">333.11361</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">358.114</td>
+<td style="text-align: left;">probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">21</td>
+<td style="text-align: left;">uV</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">-325</td>
+<td style="text-align: right;">-375</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">SmartboxPro Signals</td>
+<td style="text-align: left;">hstg__passthrough_32/probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pri_21</td>
+<td style="text-align: left;">E22</td>
+<td style="text-align: left;">pri_2</td>
+<td style="text-align: left;">ai0</td>
+<td style="text-align: right;">21</td>
+<td style="text-align: left;">port_A_21</td>
+<td style="text-align: right;">21</td>
+<td style="text-align: left;">circle</td>
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">456.114</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">-111.99961</td>
+<td style="text-align: left;">hstg__passthrough_32</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">481.11361</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">506.114</td>
+<td style="text-align: left;">probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: left;">uV</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">-87</td>
+<td style="text-align: right;">-137</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">SmartboxPro Signals</td>
+<td style="text-align: left;">hstg__passthrough_32/probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pri_22</td>
+<td style="text-align: left;">E23</td>
+<td style="text-align: left;">pri_0</td>
+<td style="text-align: left;">ai0</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: left;">port_A_22</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: left;">circle</td>
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">456.114</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">-287.99961</td>
+<td style="text-align: left;">hstg__passthrough_32</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">481.11361</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">506.114</td>
+<td style="text-align: left;">probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: left;">uV</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">-263</td>
+<td style="text-align: right;">-313</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">SmartboxPro Signals</td>
+<td style="text-align: left;">hstg__passthrough_32/probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pri_23</td>
+<td style="text-align: left;">E24</td>
+<td style="text-align: left;">pri_15</td>
+<td style="text-align: left;">ai0</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: left;">port_A_23</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: left;">circle</td>
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">456.114</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">-404.99961</td>
+<td style="text-align: left;">hstg__passthrough_32</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">481.11361</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">506.114</td>
+<td style="text-align: left;">probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: left;">uV</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">-380</td>
+<td style="text-align: right;">-430</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">SmartboxPro Signals</td>
+<td style="text-align: left;">hstg__passthrough_32/probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pri_24</td>
+<td style="text-align: left;">E25</td>
+<td style="text-align: left;">pri_13</td>
+<td style="text-align: left;">ai0</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: left;">port_A_24</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: left;">circle</td>
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">564.114</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">-112.99961</td>
+<td style="text-align: left;">hstg__passthrough_32</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">589.11361</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">614.114</td>
+<td style="text-align: left;">probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: left;">uV</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">-88</td>
+<td style="text-align: right;">-138</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">SmartboxPro Signals</td>
+<td style="text-align: left;">hstg__passthrough_32/probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pri_25</td>
+<td style="text-align: left;">E26</td>
+<td style="text-align: left;">pri_11</td>
+<td style="text-align: left;">ai0</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: left;">port_A_25</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: left;">circle</td>
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">26</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">564.114</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">-287.99961</td>
+<td style="text-align: left;">hstg__passthrough_32</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">589.11361</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">614.114</td>
+<td style="text-align: left;">probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">26</td>
+<td style="text-align: left;">uV</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">-263</td>
+<td style="text-align: right;">-313</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">SmartboxPro Signals</td>
+<td style="text-align: left;">hstg__passthrough_32/probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pri_26</td>
+<td style="text-align: left;">E27</td>
+<td style="text-align: left;">pri_9</td>
+<td style="text-align: left;">ai0</td>
+<td style="text-align: right;">26</td>
+<td style="text-align: left;">port_A_26</td>
+<td style="text-align: right;">26</td>
+<td style="text-align: left;">circle</td>
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">27</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">564.114</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">-412.99961</td>
+<td style="text-align: left;">hstg__passthrough_32</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">589.11361</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">614.114</td>
+<td style="text-align: left;">probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">27</td>
+<td style="text-align: left;">uV</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">-388</td>
+<td style="text-align: right;">-438</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">SmartboxPro Signals</td>
+<td style="text-align: left;">hstg__passthrough_32/probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pri_27</td>
+<td style="text-align: left;">E28</td>
+<td style="text-align: left;">pri_7</td>
+<td style="text-align: left;">ai0</td>
+<td style="text-align: right;">27</td>
+<td style="text-align: left;">port_A_27</td>
+<td style="text-align: right;">27</td>
+<td style="text-align: left;">circle</td>
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">21</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">674.114</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">-99.99961</td>
+<td style="text-align: left;">hstg__passthrough_32</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">699.11361</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">724.114</td>
+<td style="text-align: left;">probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: left;">uV</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">-75</td>
+<td style="text-align: right;">-125</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">SmartboxPro Signals</td>
+<td style="text-align: left;">hstg__passthrough_32/probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pri_28</td>
+<td style="text-align: left;">E29</td>
+<td style="text-align: left;">pri_5</td>
+<td style="text-align: left;">ai0</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: left;">port_A_28</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: left;">circle</td>
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">674.114</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">-223.99961</td>
+<td style="text-align: left;">hstg__passthrough_32</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">699.11361</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">724.114</td>
+<td style="text-align: left;">probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">29</td>
+<td style="text-align: left;">uV</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">-199</td>
+<td style="text-align: right;">-249</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">SmartboxPro Signals</td>
+<td style="text-align: left;">hstg__passthrough_32/probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pri_29</td>
+<td style="text-align: left;">E30</td>
+<td style="text-align: left;">pri_3</td>
+<td style="text-align: left;">ai0</td>
+<td style="text-align: right;">29</td>
+<td style="text-align: left;">port_A_29</td>
+<td style="text-align: right;">29</td>
+<td style="text-align: left;">circle</td>
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">29</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">674.114</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">-404.99961</td>
+<td style="text-align: left;">hstg__passthrough_32</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">699.11361</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">724.114</td>
+<td style="text-align: left;">probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: left;">uV</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">-380</td>
+<td style="text-align: right;">-430</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">SmartboxPro Signals</td>
+<td style="text-align: left;">hstg__passthrough_32/probe__eeg_mouse_1x30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">6</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(stage2, <span class="st">"MouseEEGv2H32_Import_Stage2.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This table will be used to assign metadata to our final channel mapping and can be downloaded <a href="MouseEEGv2H32_Import_Stage2.csv">here</a>.</p>
+<p>This import process has been now incorporated into our <a href="https://cincibrainlab.github.io/devblog/posts/htpimport/">vHTP import utility</a>.</p>
+<p>We’ll also post any updates from Neuronexus regarding this process and finding the reference channel.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

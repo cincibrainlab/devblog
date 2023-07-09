@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/h32_mapping/index.html",
       "/posts/docs_htpimport/index.html",
       "/posts/htpimport/index.html"
     ]
