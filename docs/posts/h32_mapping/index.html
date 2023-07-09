@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Ernie Pedapati">
-<meta name="dcterms.date" content="2023-07-01">
+<meta name="dcterms.date" content="2023-07-07">
 
 <title>Cincinnati Brain Lab Development Blog - Neuronexus EEG Probe Mapping</title>
 <style>
@@ -167,7 +167,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">July 1, 2023</p>
+        <p class="date">July 7, 2023</p>
       </div>
     </div>
     
@@ -185,14 +185,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<section id="neuronexus-eeg-probe-mapping" class="level1">
-<h1>Neuronexus EEG Probe Mapping</h1>
 <section id="overview" class="level2">
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>For alignment, here are the exact description of the equipment we are using from our purchase order:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="h32-quote.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">List of Materials</figcaption>
+</figure>
+</div>
 <p>This protocol describes how to map the location of the Mouse EEG v2 H32 Probe with the OM Amplifier Adapter. For better or worse, like all custom probes mapping must be confirmed manually.</p>
 </section>
 <section id="probe-layout" class="level2">
-<h2 class="anchored" data-anchor-id="probe-layout">Probe Layout</h2>
+<h2 class="anchored" data-anchor-id="probe-layout"><a href="https://neuronexus.com/files/probemapping/32-channel/H32_All_EEG_Maps.pdf">Probe Layout</a></h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="h32-layout.png" class="img-fluid figure-img"></p>
@@ -497,7 +502,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="tracing-the-probe-electrodes-to-the-amplifier-adapter" class="level2">
 <h2 class="anchored" data-anchor-id="tracing-the-probe-electrodes-to-the-amplifier-adapter">Tracing the Probe electrodes to the amplifier adapter</h2>
-<p>The probe is connected to the headstage using the Ometics Amplifier Adapter (NPD-36-AA-GS). This connector has 36 ports and 4 guide posts.</p>
+<p>The probe is connected to the headstage using the <a href="https://www.neuronexus.com/files/smartlinkheadstagemapping/SmartLink%20Chronic%2032%20Mapping.pdf">Ometics Amplifier Adapter</a> (NPD-36-AA-GS). This connector has 36 ports and 4 guide posts.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="h32-adapter.png" class="img-fluid figure-img"></p>
@@ -513,7 +518,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>The Neuronexus EEG Pin Out must be rotated to match the Amplifier Adapter Pin Out. To make it easier to visualize the matching channels, I have added red EEG channel number labels to the Amplifier Adapter Pin Out. Importantly, you can see that the Mouse 30-lead EEG leaves two channels unconnected (pri_1 and pri_31). This now clearly visible in the adapter image.</p>
 <p>Per the documentation the internal reference electrode is connected to R1. This corresponds to the “R” pin adjacent to the “0” pin once you account for the rotation of the pin out.</p>
-</section>
 </section>
 <section id="mapping-the-probe-to-the-amplifier-adapter-stage-1" class="level1">
 <h1>Mapping the Probe to the Amplifier Adapter Stage 1</h1>
@@ -609,6 +613,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </figure>
 </div>
 <p>As of now, we cannot find data for the reference channel (R1) either in the metadata or from the raw read of the signal data. We will need to reach out to Neuronexus to confirm location of reference channel. Since the reference channel can either by an external wire or an internal channel determined by a physical jumper wire, we would not expect the metadata to contain this information inherently. However, the actual signal data should be present.</p>
+<p><a href="https://www.neuronexus.com/files/technicalsupportdocuments/EEG-Arrays-Guidline.pdf">Neuronexus Wiring Information</a></p>
 </section>
 </section>
 <section id="mapping-the-probe-to-the-amplifier-adapter-stage-2" class="level1">

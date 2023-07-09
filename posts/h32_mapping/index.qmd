@@ -3,7 +3,7 @@ title: "Neuronexus EEG Probe Mapping"
 author: "Ernie Pedapati"
 date: "2023-07-07"
 categories: [vhtp, mouse, EEG, Neuronexus, probe, mapping]
-image: ""
+image: "h32-layout.png"
 ---
 
 ```{r setup, include=FALSE, echo=FALSE}
@@ -15,6 +15,10 @@ library(kableExtra)
 ```
 
 ## Overview
+
+For alignment, here are the exact description of the equipment we are using from our purchase order:
+
+![List of Materials](h32-quote.png)
 
 This protocol describes how to map the location of the Mouse EEG v2 H32 Probe with the OM Amplifier Adapter. For better or worse, like all custom probes mapping must be confirmed manually.
 
