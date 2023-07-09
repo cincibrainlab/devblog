@@ -26,6 +26,10 @@ This protocol describes how to map the location of the Mouse EEG v2 H32 Probe wi
 
 ![Layout of Mouse probe from Neuronexus](h32-layout.png)
 
+This image is from the "bottom up" so the reference electrode is actually on the bottom left following implantation:
+
+![in vivo image of implanted probe](h32-invivo.png)
+
 Per Neuronexus the recordings are stored in the following format:
 
 > Radiens saves primary time-series data sets (e.g., neural recordings) in a simple, open format.  Each dataset (i.e. recording) is saved in a file set named ‘XDAT’ that consists of three files: (i) flat binary file containing the matrix of all sample values (typical in uV) across the multiple channels, (ii) flat binary file containing all timestamps, (iii) json text file containing enriched metadata.

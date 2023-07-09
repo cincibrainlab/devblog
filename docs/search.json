@@ -25,7 +25,7 @@
     "href": "posts/h32_mapping/index.html#probe-layout",
     "title": "Neuronexus EEG Probe Mapping",
     "section": "Probe Layout",
-    "text": "Probe Layout\n\n\n\nLayout of Mouse probe from Neuronexus\n\n\nPer Neuronexus the recordings are stored in the following format:\n\nRadiens saves primary time-series data sets (e.g., neural recordings) in a simple, open format. Each dataset (i.e. recording) is saved in a file set named ‘XDAT’ that consists of three files: (i) flat binary file containing the matrix of all sample values (typical in uV) across the multiple channels, (ii) flat binary file containing all timestamps, (iii) json text file containing enriched metadata. link"
+    "text": "Probe Layout\n\n\n\nLayout of Mouse probe from Neuronexus\n\n\nThis image is from the “bottom up” so the reference electrode is actually on the bottom left following implantation:\n\n\n\nin vivo image of implanted probe\n\n\nPer Neuronexus the recordings are stored in the following format:\n\nRadiens saves primary time-series data sets (e.g., neural recordings) in a simple, open format. Each dataset (i.e. recording) is saved in a file set named ‘XDAT’ that consists of three files: (i) flat binary file containing the matrix of all sample values (typical in uV) across the multiple channels, (ii) flat binary file containing all timestamps, (iii) json text file containing enriched metadata. link"
   },
   {
     "objectID": "posts/h32_mapping/index.html#view-the-raw-signal-data-using-matlab",
