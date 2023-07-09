@@ -63,6 +63,55 @@
     "text": "Tracing the Probe electrodes to the amplifier adapter\nThe probe is connected to the headstage using the Ometics Amplifier Adapter (NPD-36-AA-GS). This connector has 36 ports and 4 guide posts.\n\n\n\nAmplifier Adapter\n\n\nThese layouts are not necessarily easy to find in one place so I have included them stiched together here:\n\n\n\nAmplifier Adapter Pin out\n\n\nThe Neuronexus EEG Pin Out must be rotated to match the Amplifier Adapter Pin Out. To make it easier to visualize the matching channels, I have added red EEG channel number labels to the Amplifier Adapter Pin Out. Importantly, you can see that the Mouse 30-lead EEG leaves two channels unconnected (pri_1 and pri_31). This now clearly visible in the adapter image.\nPer the documentation the internal reference electrode is connected to R1. This corresponds to the “R” pin adjacent to the “0” pin once you account for the rotation of the pin out."
   },
   {
+    "objectID": "posts/biorender_m1/index.html",
+    "href": "posts/biorender_m1/index.html",
+    "title": "Setting up BrainRender on Apple Silicon",
+    "section": "",
+    "text": "BrainRender is a Python package for visualizing brain data. In this tutorial we will attempt to install it on an M1/M2 mac."
+  },
+  {
+    "objectID": "posts/biorender_m1/index.html#overview",
+    "href": "posts/biorender_m1/index.html#overview",
+    "title": "Setting up BrainRender on Apple Silicon",
+    "section": "",
+    "text": "BrainRender is a Python package for visualizing brain data. In this tutorial we will attempt to install it on an M1/M2 mac."
+  },
+  {
+    "objectID": "posts/biorender_m1/index.html#alignment",
+    "href": "posts/biorender_m1/index.html#alignment",
+    "title": "Setting up BrainRender on Apple Silicon",
+    "section": "Alignment",
+    "text": "Alignment\nPrior to starting, let me post key system and config specs for comparison:\n\nSystem Information\n\n\n\nNeofetch System Info\n\n\n\n\nPython information\nI am using a conda virtual environment named brainr with python 3.10.\n\n\n\nConda Configuration\n\n\n\n\nIDE\nI am using VSCode with the Python extension. Importantly, if you install conda using a package manager like Homebrew, you will need to specify the exact conda directory (found in your shell profile) to activate the conda environment in VSCode.\n\n\n\nVS Code Config"
+  },
+  {
+    "objectID": "posts/biorender_m1/index.html#installation-per-brainrender-docs",
+    "href": "posts/biorender_m1/index.html#installation-per-brainrender-docs",
+    "title": "Setting up BrainRender on Apple Silicon",
+    "section": "Installation (per BrainRender docs)",
+    "text": "Installation (per BrainRender docs)\n\nUsing conda install\nTrying to install BrainRender using conda results in a Package Not Found error.\n\n\n\nConda Install Error\n\n\n\n\nUsing pip install\nTrying to install BrainRender using pip results in the following wheel error:\n  error: subprocess-exited-with-error\n  \n  × Getting requirements to build wheel did not run successfully.\n  │ exit code: 1\n  ╰─&gt; [12 lines of output]\n      &lt;string&gt;:19: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html\n      ld: library not found for -lhdf5\n      clang: error: linker command failed with exit code 1 (use -v to see invocation)\n      cpuinfo failed, assuming no CPU features: 'flags'\n      * Using Python 3.10.12 (main, Jul  5 2023, 15:02:25) [Clang 14.0.6 ]\n      * Found cython 0.29.36\n      * USE_PKGCONFIG: False\n      * Found conda env: ``/opt/homebrew/Caskroom/miniconda/base/envs/brainr``\n      .. ERROR:: Could not find a local HDF5 installation.\n         You may need to explicitly state where your local HDF5 headers and\n         library can be found by setting the ``HDF5_DIR`` environment\n         variable or by using the ``--hdf5`` command-line option.\n      [end of output]\n  \n  note: This error originates from a subprocess, and is likely not a problem with pip.\nerror: subprocess-exited-with-error\n\n× Getting requirements to build wheel did not run successfully.\n│ exit code: 1\n╰─&gt; See above for output.\n\nnote: This error originates from a subprocess, and is likely not a problem with pip.\nI used this link to start troubleshooting: https://forum.image.sc/t/error-when-installing-brainrender-macos-11-4-m1-silicon/56153/5\nand ran the following commands:\npip install numpy=1.21.1\nconda install hdf5\nconda install cython\npip install blosc2\nexport CFLAGS='$CFLAGS -Wno-implicit-function-declaration'\npip install tables --no-cache-dir\nconda install scipy\nconda install h5py\npip install brainrender\nThere is an error on this line: pip install numpy=1.21.1 which should be: pip install numpy==1.21.1\nThis is essential as the latest version of numpy is not compatible with a dependency of BrainRender.\nThis had an error: clang: error: no such file or directory: ‘\\(CFLAGS'  clang: error: no such file or directory: '\\)CFLAGS’\nI modified the following line since I did not have an existing CFLAGS variable:\nexport CFLAGS='-Wno-implicit-function-declaration'\nThis resulted in a “successful” installation of BrainRender and appears in my pip list:\n(brainr) ernie@Ernies-MacBook-Air:~/Documents/GitHub/devblog$ pip list\nPackage            Version\n------------------ --------\nappdirs            1.4.4\nappnope            0.1.3\nasttokens          2.2.1\nbackcall           0.2.0\nbeautifulsoup4     4.12.2\nbg-atlasapi        1.0.2\nbg-space           0.6.0\nblosc2             2.0.0\nbrainrender        2.0.5.5"
+  },
+  {
+    "objectID": "posts/biorender_m1/index.html#morphio-error",
+    "href": "posts/biorender_m1/index.html#morphio-error",
+    "title": "Setting up BrainRender on Apple Silicon",
+    "section": "Morphio error",
+    "text": "Morphio error\nHowever, when I try to run Brainrender as a module (python -m brainrender), I got the following error:\n  Referenced from: &lt;79BFE7D5-EE01-377B-BE24-CC955219FA59&gt; \n/opt/homebrew/Caskroom/miniconda/base/envs/brainr/lib/python3.10/site-packages/morphio/_morphio.cpython-310-darwin.so\n  Reason: tried: '/opt/homebrew/opt/hdf5/lib/libhdf5.310.dylib' (no such file), \n'/System/Volumes/Preboot/Cryptexes/OS/opt/homebrew/opt/hdf5/lib/libhdf5.310.dylib' (no such file), \n'/opt/homebrew/opt/hdf5/lib/libhdf5.310.dylib' (no such file), '/usr/local/lib/libhdf5.310.dylib' (no such file), \n'/usr/lib/libhdf5.310.dylib' (no such file, not in dyld cache)\nThe error you’re seeing is due to the Python package morphio not being able to find the HDF5 library (libhdf5.310.dylib) on your system. You can solve this issue by installing the HDF5 library using Homebrew with the command:\n brew install hdf5.\nNow I can run python and import brainrender:\n(brainr) ernie@Newton:~$ python\nPython 3.10.12 (main, Jul  5 2023, 15:02:25) [Clang 14.0.6 ] on darwin\nType \"help\", \"copyright\", \"credits\" or \"license\" for more information.\n&gt;&gt;&gt; import brainrender\n&gt;&gt;&gt; \nLet’s try it out with an example notebook from the BrainRender docs at https://github.com/brainglobe/brainrender/blob/master/getting_started.ipynb\nYou can’t run it directly as this is an outdated v1 notebook for most modern Jupyter installations. Instead just run the code in a new notebook by copying and pasting the code from the notebook into a new notebook.\nconda install jupyter\njupyter notebook"
+  },
+  {
+    "objectID": "posts/biorender_m1/index.html#brainrender-example",
+    "href": "posts/biorender_m1/index.html#brainrender-example",
+    "title": "Setting up BrainRender on Apple Silicon",
+    "section": "Brainrender Example",
+    "text": "Brainrender Example\n\n\n\nBrainRender Running in a Jupyter Notebook\n\n\n\nExample render\n\n\n\nBrainRender Example Render"
+  },
+  {
+    "objectID": "posts/biorender_m1/index.html#summary",
+    "href": "posts/biorender_m1/index.html#summary",
+    "title": "Setting up BrainRender on Apple Silicon",
+    "section": "Summary",
+    "text": "Summary\nBrainRender has some difficulty with installing on Apple Silicon. In this post, we used a combination of conda and pip packages to get BrainRender working. We also addressed any missing dependencies by installing them with Homebrew."
+  },
+  {
     "objectID": "posts/htpimport/index.html",
     "href": "posts/htpimport/index.html",
     "title": "Introducing the vHTP Import Utility",
@@ -186,6 +235,6 @@
     "href": "index.html",
     "title": "Cincinnati Brain Lab Development Blog",
     "section": "",
-    "text": "Neuronexus EEG Probe Mapping\n\n\n\n\n\n\n\nvhtp\n\n\nmouse\n\n\nEEG\n\n\nNeuronexus\n\n\nprobe\n\n\nmapping\n\n\n\n\n\n\n\n\n\n\n\nJul 7, 2023\n\n\nErnie Pedapati\n\n\n\n\n\n\n  \n\n\n\n\nvHTP Import Tool Documentation\n\n\n\n\n\n\n\nEEG\n\n\nMatlab\n\n\ndocumentation\n\n\n\n\n\n\n\n\n\n\n\nJun 28, 2023\n\n\nE. Pedapati\n\n\n\n\n\n\n  \n\n\n\n\nIntroducing the vHTP Import Utility\n\n\n\n\n\n\n\nvhtp\n\n\neeglab\n\n\nmatlab\n\n\npreprocessing\n\n\neeg\n\n\n\n\n\n\n\n\n\n\n\nJun 25, 2023\n\n\nErnie Pedapati\n\n\n\n\n\n\nNo matching items"
+    "text": "Setting up BrainRender on Apple Silicon\n\n\n\n\n\n\n\npython\n\n\nneuroscience\n\n\nbiorender\n\n\n\n\n\n\n\n\n\n\n\nJul 9, 2023\n\n\nErnie Pedapati\n\n\n\n\n\n\n  \n\n\n\n\nNeuronexus EEG Probe Mapping\n\n\n\n\n\n\n\nvhtp\n\n\nmouse\n\n\nEEG\n\n\nNeuronexus\n\n\nprobe\n\n\nmapping\n\n\n\n\n\n\n\n\n\n\n\nJul 7, 2023\n\n\nErnie Pedapati\n\n\n\n\n\n\n  \n\n\n\n\nvHTP Import Tool Documentation\n\n\n\n\n\n\n\nEEG\n\n\nMatlab\n\n\ndocumentation\n\n\n\n\n\n\n\n\n\n\n\nJun 28, 2023\n\n\nE. Pedapati\n\n\n\n\n\n\n  \n\n\n\n\nIntroducing the vHTP Import Utility\n\n\n\n\n\n\n\nvhtp\n\n\neeglab\n\n\nmatlab\n\n\npreprocessing\n\n\neeg\n\n\n\n\n\n\n\n\n\n\n\nJun 25, 2023\n\n\nErnie Pedapati\n\n\n\n\n\n\nNo matching items"
   }
 ]

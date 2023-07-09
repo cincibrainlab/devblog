@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/biorender_m1/index.html",
       "/posts/h32_mapping/index.html",
       "/posts/docs_htpimport/index.html",
       "/posts/htpimport/index.html"
