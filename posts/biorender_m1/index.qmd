@@ -7,7 +7,7 @@ image: "br-logo.png"
 ---
 
 ## Overview
-
+quatro
 [BrainRender](https://brainglobe.info/documentation/brainrender/index.html) is a Python package for visualizing brain data. In this tutorial we will attempt to install it on an M1/M2 mac.
 
 ## Alignment
@@ -83,17 +83,22 @@ conda install h5py
 pip install brainrender
 ```
 
+### Fix Numpy install
+
 There is an error on this line:
 pip install numpy=1.21.1 which should be:
 pip install numpy==1.21.1
 
 This is essential as the latest version of numpy is not compatible with a dependency of BrainRender.
 
+### CFLAGS Error
+
 This had an error:
       clang: error: no such file or directory: '$CFLAGS'
       clang: error: no such file or directory: '$CFLAGS'
 
 I modified the following line since I did not have an existing CFLAGS variable:
+
 ```bash
 export CFLAGS='-Wno-implicit-function-declaration'
 ```
@@ -163,3 +168,4 @@ jupyter notebook
 
 BrainRender has some difficulty with installing on Apple Silicon. In this post, we used a combination of conda and pip packages to get BrainRender working. We also addressed any missing dependencies by installing them with Homebrew.
 
+Ernie

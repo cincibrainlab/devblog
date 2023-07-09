@@ -186,7 +186,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="overview" class="level2">
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<p><a href="https://brainglobe.info/documentation/brainrender/index.html">BrainRender</a> is a Python package for visualizing brain data. In this tutorial we will attempt to install it on an M1/M2 mac.</p>
+<p>quatro <a href="https://brainglobe.info/documentation/brainrender/index.html">BrainRender</a> is a Python package for visualizing brain data. In this tutorial we will attempt to install it on an M1/M2 mac.</p>
 </section>
 <section id="alignment" class="level2">
 <h2 class="anchored" data-anchor-id="alignment">Alignment</h2>
@@ -274,8 +274,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> install scipy</span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> install h5py</span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install brainrender</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="fix-numpy-install" class="level3">
+<h3 class="anchored" data-anchor-id="fix-numpy-install">Fix Numpy install</h3>
 <p>There is an error on this line: pip install numpy=1.21.1 which should be: pip install numpy==1.21.1</p>
 <p>This is essential as the latest version of numpy is not compatible with a dependency of BrainRender.</p>
+</section>
+<section id="cflags-error" class="level3">
+<h3 class="anchored" data-anchor-id="cflags-error">CFLAGS Error</h3>
 <p>This had an error: clang: error: no such file or directory: ‘<span class="math inline">\(CFLAGS'  clang: error: no such file or directory: '\)</span>CFLAGS’</p>
 <p>I modified the following line since I did not have an existing CFLAGS variable:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">CFLAGS</span><span class="op">=</span><span class="st">'-Wno-implicit-function-declaration'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -337,6 +343,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="summary" class="level2">
 <h2 class="anchored" data-anchor-id="summary">Summary</h2>
 <p>BrainRender has some difficulty with installing on Apple Silicon. In this post, we used a combination of conda and pip packages to get BrainRender working. We also addressed any missing dependencies by installing them with Homebrew.</p>
+<p>Ernie</p>
 
 
 </section>
