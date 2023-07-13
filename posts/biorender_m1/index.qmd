@@ -134,7 +134,7 @@ However, when I try to run Brainrender as a module (python -m brainrender), I go
 The error you're seeing is due to the Python package morphio not being able to find the HDF5 library (libhdf5.310.dylib) on your system. 
 You can solve this issue by installing the HDF5 library using Homebrew with the command:
 ```bash
- brew install hdf5.
+ brew install hdf5
 ```
 
 Now I can run python and import brainrender:
